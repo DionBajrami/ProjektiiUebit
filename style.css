@@ -3,6 +3,17 @@ header{
     color: rgb(255, 255, 255);
 
 }
+.title{
+    font-size: 1.5em;
+    color: rgb(13, 218, 105);
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    float: left;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+    vertical-align: center;
+
+}
 body{
     margin: 0px;
     padding: 0px;
@@ -11,18 +22,31 @@ body{
 #reg{
     text-decoration: none;
     color: rgb(13, 218, 105);
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
+    display: inline-block;
     padding: 10px;
+    float: right;
 
 }
 #reg:hover{
     display: inline-block;
     color:rgba(13, 218, 105, 0.459);
+    margin: auto;
+}
+#reg img{
+    margin: 3px;
+    filter: brightness(1) invert(0);
+    height: 20px;
+    vertical-align: middle;
+   background-color: rgb(13, 218, 105);
+   border-radius: 30px;
+   
+  
 }
 
 .searchbox{
+ 
   display: inline-block;
     margin: auto;
     position: relative;
@@ -39,6 +63,7 @@ body{
 
 }
 .elementbox{
+    margin-top: 20px;
     width: 100%;
     height: 100%;
     padding: 1px 10px;
@@ -82,6 +107,8 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
     font-size: 1.1em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: inline-flex;
+    justify-content: baseline;
+
     padding: 5px;
     align-items: center;
 
@@ -89,11 +116,12 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
 .icon{
     color: white;
     filter: brightness(0) invert(1);
+
 }
 .navbar .links{
     display: flex;
     justify-content: space-evenly;
-    width: 80%;
+    width: 100%;
 }
 .navbar .links a:hover:not(.active){
     border-bottom: 4px solid rgb(13, 218, 105);
@@ -109,7 +137,7 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
     display: inline-block;
 }
 .dropdown button{
-
+    width: 200px;
     background-color: rgb(0, 0, 0);
     height: 100%;
     cursor: pointer;
@@ -117,7 +145,6 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
     font-size: 1.1em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border: none;
-   
 
 }
 .dropdown :hover button{
@@ -129,15 +156,17 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
     text-decoration: none;
     display: block;
     color: black;
-    border: 2px solid black;
+    border:  1px solid black;
     padding: 10px 10px;
+    width: 100%;
+    margin: 0;
 }
 .dropdown .content{
     display: none;
     position: absolute;
     background-color: rgb(255, 255, 255);
     min-width: 70px;
-    box-shadow: 2px 5px 3px hsla(0, 0%, 0%, 0.562);
+    box-shadow: -2px 5px 3px hsla(0, 0%, 0%, 0.562);
     color: black;
 }
 .dropdown:hover .content{
@@ -150,4 +179,84 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
 }
 .dropdown:hover button{
     background-color:rgb(9, 121, 59);
+}
+
+.shopcontainer{
+    display: flex;
+   margin: auto;
+   /* background-color: red;*/
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.products{
+ margin: 10px;
+    /*background-color: blue;*/
+}
+.info a{
+    word-wrap: break-word;
+    text-decoration: none;
+    color: black;
+   /* background-color: green;*/
+}
+.info a:hover{
+    cursor: pointer;
+    color: rgb(9, 121, 59);;
+}
+.shopcontainer .products .price{
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.shopcontainer .products .addcart{
+    background-color: black;
+    color: white;
+    font-weight: bolder;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    font-family:sans-serif;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+.shopcontainer .products .addcart:hover{
+    
+   background-color: rgb(13, 218, 105);
+   color: black;
+   border-color: black;
+}
+.shopcontainer .products .img{
+    height: 300px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+    border: 5px solid black;
+}
+.shopcontainer .products{
+    height: 500px;
+    width: 25%;
+}
+
+
+.pages{
+    margin: 15px;
+    text-align: center;
+}
+.pages a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    padding: 8px 15px;
+    display: inline-block;
+    font-size: 1.2em;
+}
+.pages a.active{
+    background-color: rgb(50, 205, 76);
+    font-weight: bold;
+    border-radius: 10px;
+    color: black;
+}
+.pages a:hover:not(.active){
+    background-color: rgb(187, 181, 181);
+    border-radius: 10px;
+
 }
