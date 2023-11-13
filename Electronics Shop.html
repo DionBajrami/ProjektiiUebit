@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html> 
     <title> Electronics Shop </title>
+    <!-- 
+     Copy Paste prej <head> deri tek </header> per secilin html file
+    te ri-->
     <head> 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content=""IE=edge>
@@ -11,7 +14,8 @@
     </head>
     <header>
         <span class="title">TechZone</span>
-            <a id="reg" href=""><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img><a>
+<!--3.  Ketu vendos html file-in
+        per regjistrimin e userit-->  <a id="reg" href=""><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img><a>
                 <div class="searchbox">
                     <table class="elementbox">
                         <tr>
@@ -30,9 +34,10 @@
                 <div class="links">
                   <a href="Electronics Shop.html">
                     <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
-                    <a href="">Contact Us</a>
-                    <a href="">New Arrivals</a>
-                    <a href=""><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
+                    <a href="Contact Us.html">Contact Us</a>
+<!--2. Ketu vendos html file-in 
+    me produktet e reja--><a href="">New Arrivals</a>
+                    <a href="Cart.html"><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
                   </div>
 
 
@@ -40,6 +45,8 @@
                        <div class="dropdown">
                         <button> ↓ Products</button>
                        <div class="content">
+<!--1. Fillo me kete Ketu Vendos html file-in qe shfaq produktet e kategoris perkatese
+layout duhet te jet njesoj si Home Page vetem produktet qe ndryshojn-->
                         <a href="">Power</a>
                         <a href="">HDMI</a>
                         <a href="">Drones</a>
@@ -60,88 +67,135 @@
         </nav>
     </header>
     <body>
-        <h1>Featured Products</h1>
+        
+        <!-- Ndyrsho emrin varesisht 
+            kategoris se zgjedhur--><h1>Featured Products</h1>
         <div class="shopcontainer">
 
+            <!-- Kjo rubrik perfshin nje produkt te tere-->
+
             <div class="products">
-                <a href=""><img src="produktet\AA6380.png" alt="1 to 2 output HDMI splitter" class="img"></img></a>
+<!-- Imazhi i Produktit
+ketu vendoset linku per
+me shum detaje rreth 
+produktit--> <a href=""><img src="produktet\AA6380.png" alt="1 to 2 output HDMI splitter" class="img"></img></a>
                 <div class="info">
-                    <a href="">1 to 2 output HDMI Splitter</a>
-                    <p class="price">$29.99</p>
-                    <div class="addcart">ADD TO CART</div>
+
+ <!-- emri ketu vendoset linku 
+per me shum detaje rreth produktit 
+njejt si tek imazhi--> <a href="">1 to 2 output HDMI Splitter</a>
+             <p class="price">$29.99</p>
+ <!-- Ketu ne rreshtin e dyt vendoset Emri dhe cmimi i produktit
+                    -->  <div class="addcart" onclick="addToCart(this);
+                            addToCart('1 to 2 output HDMI Splitter', 29.99)">ADD TO CART</div>
                     </div>
             </div>
 
+            <!-- Deri ketu-->
+
+            <!-- Produkti 2-->
             <div class="products">
                 <a href=""><img src="produktet\TR6070a.jpg" alt="GPS Drone with 4K 2 Axis" class="img"></img></a>
                 <div class="info">
                     <a href="">GPS Drone with 4K 2 Axis </a>
                     <p class="price">$499.99</p>
-                    <div class="addcart">ADD TO CART</div>
+                    <div class="addcart" onclick="addToCart(this);">ADD TO CART</div>
                     </div>
             </div>  
-           <!-- prices   149 71Tq4hFGQzL._AC_UL320_.jpg -->
+           
+            <!-- Produkti 3-->
             <div class="products">
                 <a href=""><img src="produktet\TR3128.jpg" alt="RC Micro folidng drone with Wi-Fi FPV HD Cam" class="img"></img></a>
                 <div class="info">
                     <a href="">RC Micro Folidng Drone with Wi-Fi FPV HD Cam </a>
                     <p class="price">$69.99</p>
-                    <div class="addcart">ADD TO CART</div>
+                    <div class="addcart" onclick="addToCart(this);
+                    addToCart('RC Micro Folidng Drone with Wi-Fi FPV HD Cam', 69.99)">ADD TO CART</div>
                     </div>
             </div>  
+
+            <!-- Produkti 4 i finalizuar-->
             <div class="products">
-                <a href=""><img src="produktet\PS1069.jpg" alt="GPS Drone with 4K 2 Axis" class="img"></img></a>
+                <a href="Power Bank.html"><img src="produktet\PS1069.jpg" alt="Power Bank" class="img"></img></a>
                 <div class="info">
-                    <a href="">Power Bank with 2 x USB and Wireless charger</a>
+                    <a href="Power Bank.html">Power Bank with 2 x USB and Wireless charger</a>
                     <p class="price">$189.99</p>
-                    <div class="addcart">ADD TO CART</div>
+                    <div class="addcart" onclick="addToCart(this);
+                    addToCart('Power Bank with 2 x USB and Wireless charger', 189.99)">ADD TO CART</div>
                     </div>
             </div>  
+            
+            <!-- Produkti 5-->
             <div class="products">
                 <a href=""> <img src="produktet\PS2179.jpg" alt="Adapter" class="img"></img></a>
                 <div class="info">
                     <a href="">World Travel Adapter</a>
                     <p class="price">$5.99</p>
-                    <div class="addcart">ADD TO CART</div>
+                    <div class="addcart" onclick="addToCart(this);
+                    addToCart('World Travel Adapter', 5.99)">ADD TO CART</div>
                     </div>
             </div>  
+
+            <!-- Produkti 6-->
             <div class="products">
                 <a href="">  <img src="produktet\PS2015.jpg" alt="USB port charger" class="img"></img></a>
                 <div class="info">
                     <a href="">5V USB Port Mains Charger</a>
                     <p class="price">$9.99</p>
-                    <div class="addcart">ADD TO CART</div>
+                    <div class="addcart" onclick="addToCart(this);
+                    addToCart('5V USB Port Mains Charger', 9.99)">ADD TO CART</div>
                     </div>
             </div>  
+
+            <!-- Produkti 7-->
             <div class="products">
                 <a href="">  <img src="produktet\AH0074.jpg" alt="SteelSeries black headphones" class="img"></img></a>
                 <div class="info">
                     <a href="">SteelSeries Arctis Nova 1 Multi-System Gaming Headset</a>
                     <p class="price">$49.99</p>
-                    <div class="addcart">ADD TO CART</div>
+                    <div class="addcart" onclick="addToCart(this);
+                    addToCart('SteelSeries Arctis Nova 1 Multi-System Gaming Headset', 49.99)">ADD TO CART</div>
                     </div>
             </div>  
 
+            <!-- Produkti 8-->
             <div class="products">
                 <a href="">  <img src="produktet/71Tq4hFGQzL._AC_UL320_.jpg" alt="27 inch monitor" class="img"></img></a>
                 <div class="info">
                     <a href="">Curved 27 Inch Gaming Monitor, Full HD 1080p R1800 165Hz VA Computer Monitor</a>
                     <p class="price">$149.99</p>
-                    <div class="addcart">ADD TO CART</div>
+                    <div class="addcart" onclick="addToCart(this);
+                    addToCart('Curved 27 Inch Gaming Monitor, Full HD 1080p R1800 165Hz VA Computer Monitor', 149.99)">ADD TO CART</div>
                     </div>
             </div>  
 
+            <!-- Produkti 9-->
+            <div class="products">
+                <a href="">  <img src="produktet/OP1202.jpg" alt="Multi color LED" class="img"></img></a>
+                <div class="info">
+                    <a href="">Multi-color x LED Globe String Lights</a>
+                    <p class="price">$19.99</p>
+                    <div class="addcart" onclick="addToCart(this);
+                    addToCart('Multi-color x LED Globe String Light', 19.99)">ADD TO CART</div>
+                    </div>
+            </div>  
+
+            
         </div>
-    
-    <footer></footer>
+    <!-- FOOTERI -->
+    <footer>
+
+    </footer>
+
     <div class="pages">
         
             <a href="" class="active"> 1 </a>
             <a href="" style="color: black;"> 2 </a>
         <a href="" style="color: black;"> 3 </a>
-        <a href="" style="color: black;"> > </a>
+        <a href="" style="color: black;"> Next > </a>
         </div>
 
 
     </div>
 </body>
+</html>

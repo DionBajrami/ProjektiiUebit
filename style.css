@@ -3,6 +3,27 @@ header{
     color: rgb(255, 255, 255);
 
 }
+@media screen and (max-width:750px){
+    .shopcontainer {
+        width: 2500px;
+        flex-direction: column; /* Stack products vertically on smaller screens */
+    
+    }
+
+    .products {
+        width: 100%; /* Make each product take full width on smaller screens */
+        box-sizing: border-box; /* Include padding and border in the element's total width */
+        padding: 10px; /* Add padding for spacing */
+        margin-bottom: 10px; /* Add margin for spacing between products */
+    }
+
+    .products .img {
+        width: 100%; /* Make the image fill the width of the product container */
+        height: auto; /* Allow images to scale based on the width on smaller screens */
+        border-radius: 20px; /* Add border-radius for rounded corners */
+    }
+}
+
 .title{
     font-size: 1.5em;
     color: rgb(13, 218, 105);
@@ -124,8 +145,7 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
     width: 100%;
 }
 .navbar .links a:hover:not(.active){
-    border-bottom: 4px solid rgb(13, 218, 105);
-    border-radius: 1px;
+    border-bottom:4px solid rgb(13, 218, 105);
     color: rgb(150, 150, 150);
 }
 
@@ -168,9 +188,11 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
     min-width: 70px;
     box-shadow: -2px 5px 3px hsla(0, 0%, 0%, 0.562);
     color: black;
+    width: 200px;
 }
 .dropdown:hover .content{
     display:block;
+
 }
 .dropdown .content a:hover:not(.active){
     background-color: rgb(0, 0, 0);
@@ -207,24 +229,31 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
     font-weight: bold;
     font-size: 1.1em;
 }
-.shopcontainer .products .addcart{
+ .addcart{
     background-color: black;
     color: white;
     font-weight: bolder;
-    padding: 10px;
-    border-radius: 20px;
+    padding: 15px;
+    border-radius: 10px;
     text-align: center;
     cursor: pointer;
     font-family:sans-serif;
     border: 2px solid transparent;
     transition: border-color 0.3s ease;
 }
-.shopcontainer .products .addcart:hover{
+.addcart:hover{
     
    background-color: rgb(13, 218, 105);
    color: black;
    border-color: black;
 }
+.shopcontainer .products .addcart.expanded {
+    background-color: rgb(13, 218, 105);
+    color: black;
+    border-color: black;
+    
+}
+
 .shopcontainer .products .img{
     height: 300px;
     width: 100%;
@@ -241,6 +270,7 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
 .pages{
     margin: 15px;
     text-align: center;
+    box-sizing: border-box;
 }
 .pages a{
     color: rgb(255, 255, 255);
@@ -259,4 +289,249 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
     background-color: rgb(187, 181, 181);
     border-radius: 10px;
 
+}
+
+main{
+ 
+    padding: 20px;
+}
+.left{
+    width: 30%;
+    text-align: center;
+}
+
+.right{
+    border: 2px solid black;
+    width: 60%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+
+   
+}
+.right input,
+.right textarea {
+    /*margin: 10px;*/
+    border: none;
+    border-bottom:2px solid gray ;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+}
+.right input:focus,
+.right textarea:focus{
+    border-bottom: 2px solid black;
+}
+::placeholder{
+    font-weight: bold;
+}
+textarea{
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+    resize: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+textarea ::-webkit-scrollbar{
+    width: 0px;
+
+}
+largetext{
+    vertical-align: center;
+    margin: 20px;
+font-size: 30px;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+   display: inline-block;
+}
+.send{
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    font-size: 16px;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+}
+.send:hover a{
+    border-bottom: 4px solid rgb(50, 205, 76);
+    cursor: pointer;
+}
+.send a{
+    text-decoration: none;
+    color: black;
+}
+.thanks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    font-size: 20px;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+
+}
+#back{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid black;
+    color: black;
+    font-weight: bold;
+    background-color: rgb(50, 205, 76);
+    border-radius: 10px;
+}
+#back:hover{
+    border: 3px solid black;
+
+}
+
+
+.pContainer {
+   display: flex;
+   align-content: flex-start;
+   margin-top: 30px;
+   
+  
+}
+
+@media screen and (max-width:750px) {
+    .pContainer{
+        flex-wrap: wrap;
+    }
+    .p_main{
+        width: 100%;
+    }
+    .info_container{
+        width: 100%;
+    }
+    
+}
+
+ 
+ .pContainer .p_main {
+     border: 5px solid black;
+     margin: 20px;
+     width: 90%;
+ }
+ 
+ 
+ .pContainer .p_info {
+     display: flex;
+    
+     flex-direction: column;
+     align-items: flex-start;
+     margin: 20px;
+ }
+ 
+ .p_preview {
+    border: 5px solid black;
+    padding: 10px;
+     width: 100px;
+     margin:20px;
+     margin-top: 5px;
+ }
+ 
+ .info_container {
+     display: flex;
+     align-items: flex-start;
+ }
+ .p_info{
+  
+    margin: 20px;
+    padding: 20px;
+ }
+ .ProductTitle{
+    font-size: 30px;
+   font-family: 'sans-serif' ,'Gill Sans', 'Gill Sans MT';
+    font-weight: bold;
+
+}
+.ProductPrice{
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: gray;
+}
+
+ .p_preview:hover{
+    cursor: pointer;
+    border-color: rgb(7, 199, 7);
+ }
+
+.description{
+    border-radius: 10px;
+    margin: 50px;
+    border: 5px solid black;
+ }
+ .desc{
+    
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+ }
+ .description p{
+    margin: 10px;
+    padding: 5px;
+ }
+
+ .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.largeImage {
+    max-width: 90%;
+    max-height: 90%;
+    border: 5px solid black;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.carttext{
+    
+    font-size: 30px;
+    margin: 70px;
+    padding: 10px;
+    color: gray;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+}
+.GoShopping{
+    background-color: black;
+    margin: 70px;
+    border-radius: 10px;
+}
+.GoShopping a{
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: inline-flex;
+    justify-content: baseline;
+    padding: 5px;
+    align-items: center;
+   
 }
