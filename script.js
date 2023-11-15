@@ -43,7 +43,7 @@ function showLargeImage(element) {
     document.body.appendChild(overlay);
 }
 
-function addToCart(button) {
+function addToCart1(button) {
     button.classList.toggle('expanded');
 
     if (button.classList.contains('expanded')) {

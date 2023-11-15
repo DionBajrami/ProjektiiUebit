@@ -22,6 +22,7 @@ header{
         height: auto; /* Allow images to scale based on the width on smaller screens */
         border-radius: 20px; /* Add border-radius for rounded corners */
     }
+
 }
 
 .title{
@@ -288,6 +289,7 @@ style="width: 50px;height: 30px;background-color: rgb(39, 219, 129);
 .pages a:hover:not(.active){
     background-color: rgb(187, 181, 181);
     border-radius: 10px;
+    color: black;
 
 }
 
@@ -352,14 +354,16 @@ font-size: 30px;
    display: inline-block;
 }
 .send{
+    
     padding: 10px;
     margin: 10px;
     border: none;
     font-size: 16px;
     font-family: "Press Start 2P", "consolas", sans-serif;
 }
-.send:hover a{
-    border-bottom: 4px solid rgb(50, 205, 76);
+.send:hover{
+    background-color: gray;
+   
     cursor: pointer;
 }
 .send a{
@@ -535,3 +539,67 @@ font-size: 30px;
     align-items: center;
    
 }
+
+footer{
+    margin-top: 10%;
+    background-color: rgb(36, 36, 36);
+    margin-bottom: 0px;
+
+}
+
+.f{
+    font-family: "Press Start 2P", "consolas", sans-serif;
+    font-size: 1.5em; color:rgb(13, 218, 105);
+    font-weight: bold;
+    color: rgb(13, 218, 105);
+    display: flex;
+    justify-content: space-between;
+    margin-left:30px;
+
+}
+
+.footermain {
+   
+    margin: 1.5em;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footerleft,
+  .footercenter,
+  .footerright {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    width: 30%;
+  
+  }
+  .footercenter{
+
+    margin-left:100px;
+  }
+  
+  .fundi {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+.footercenter p{
+    display: flex;
+    justify-content: center;
+    padding-left: 150px;
+
+    
+}
+.footerright p{
+    display: flex;
+    justify-content: end;
+}
+
+ .fundi{
+    color: lightgreen;
+    display: flex;
+    justify-content: flex-start;
+    margin: 1.5em;
+    margin-bottom: 0px;
+ }
+
