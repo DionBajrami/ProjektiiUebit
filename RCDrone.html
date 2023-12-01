@@ -64,15 +64,15 @@
     <body>
         <div class="pContainer">
             <div class="images">
-            <img src="produktet\TR3128.jpg" id='LargeImage' alt="Power Bank" class="p_main" onload="firstimage()"></img>
+            <img src="produktet\TR3128.jpg" id='LargeImage' alt="Power Bank" class="p_main"></img>
 
-            <img src="produktet\TR3128.jpg" alt="Power Bank" class="p_preview" id="PowerBank1" onclick="NextImage()"></img>
+            <img src="produktet\TR3128.jpg" alt="Power Bank" class="p_preview" id="PowerBank1" onclick="NextImage(0)"></img>
         
-            <img src="produktet\TR3128(1).jpg" alt="Power Bank" class="p_preview" id="PowerBank2" onclick="NextImage()"></img>
+            <img src="produktet\TR3128(1).jpg" alt="Power Bank" class="p_preview" id="PowerBank2" onclick="NextImage(1)"></img>
         
-            <img src="produktet\TR3128(2).jpg" alt="Power Bank" class="p_preview" id="PowerBank3" onclick="NextImage()"></img>
+            <img src="produktet\TR3128(2).jpg" alt="Power Bank" class="p_preview" id="PowerBank3" onclick="NextImage(2)"></img>
 
-            <img src="produktet\TR3128(3).jpg" alt="Power Bank" class="p_preview" id="PowerBank4" onclick="NextImage()"></img>
+            <img src="produktet\TR3128(3).jpg" alt="Power Bank" class="p_preview" id="PowerBank4" onclick="NextImage(3)"></img>
             <br>
             
         </div>
@@ -121,23 +121,16 @@
             let pozita = 0;
             let sliderImageElement = document.getElementById("LargeImage");
 
-            function firstimage() {
-                updateImage(0);
-            }
-            function NextImage() {
-            if (pozita < productImages.length - 1) {
-                pozita++;
-            } else {
-                pozita = 0; 
-            }
-            updateImage();
-        }
+           
 
-            function updateImage() {
-                sliderImageElement.src = productImages[pozita];
+            function updateImage(index) {
+                sliderImageElement.src = productImages[index];
+                pozita = index;
             }
 
-            firstimage();
+            function NextImage(index) {
+                updateImage(index);
+            }
         
             </script>
     </body>
