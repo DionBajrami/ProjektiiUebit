@@ -20,30 +20,29 @@
     
                 let nameregex = /^[A-Z][a-z]{2,8}$/;
                 let lastnameregex = /^[A-Z][a-z]{2,8}$/;
-                let emailregex = /^[A-Za-z0-9_-]{1,40}@[a-z-]+\.+[a-z]{2,4}$/;
+                let emailregex = /^[A-Za-z0-9_-]{1,40}@[a-z-/s]+\.+[a-z/s]{2,4}$/;
                 let messageregex = /.{10,}/;
 
                 
     
                 if (!nameregex.test(name.value)){
                     nameError.innerText = 'Fill the name with a capital letter and size between 2-8';
-                    return;
+                    return ;
                 }
                 
                 if (!lastnameregex.test(lastname.value)) {
                     lastnameError.innerText = 'Fill the last name with a capital letter and size between 2-8';
-                    return;
+                    return ;
                 }
                 if (!emailregex.test(email.value)) {
                     emailError.innerText = 'Enter a valid email';
-                    return;
+                    return ;
                 }
                 if (!messageregex.test(message.value)) {
                     messageError.innerText = 'The message should be at least 10 characters long!';
-                    return;
+                    return ;
                 }
     
-                
                 window.location.href = 'Feedback.html';
             }
         </script>
@@ -86,15 +85,14 @@
                    <div class="dropdown">
                     <button> ↓ Products</button>
                    <div class="content">
-                    <a href="">Power</a>
-                    <a href="">HDMI</a>
-                    <a href="">Drones</a>
-                    <a href="">Computers</a>
-                    <a href="">LED light</a>
-                    <a href="">Mobile Accessories</a>
-                    <a href="">Audio</a>
-                    <a href="">Components</a>
-                    <a href="">Video</a>
+                    <a href="PowerCatg.html">Power</a>
+                        <a href="HDMICatg.html">HDMI</a>
+                        <a href="DronesCatg.html">Drones</a>
+                        <a href="LEDCatg.html">LED light</a>
+                        <a href="MACatg.html">Mobile Accessories</a>
+                        <a href="AudioCatg.html">Audio</a>
+                        <a href="ComponentsCatg.html">Components</a>
+                        <a href="VideoCatg.html">Video</a>
 
 
                   </div>

@@ -51,6 +51,7 @@ body{
     padding: 0px;
 }
 
+
 #reg{
     text-decoration: none;
     color: rgb(13, 218, 105);
@@ -213,20 +214,17 @@ body{
 .shopcontainer{
     display: flex;
    margin: auto;
-   /* background-color: red;*/
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
 .products{
  margin: 10px;
-    /*background-color: blue;*/
 }
 .info a{
     word-wrap: break-word;
     text-decoration: none;
     color: black;
-   /* background-color: green;*/
 }
 .info a:hover{
     cursor: pointer;
@@ -321,7 +319,6 @@ main{
 }
 .right input,
 .right textarea {
-    /*margin: 10px;*/
     border: none;
     border-bottom:2px solid gray ;
     margin-bottom: 10px;
