@@ -79,19 +79,22 @@
                     <form action="">
                         <h1>Create Account</h1><hr>
                         <div class="register-login-form-group">
-                            <label for="register email">E-mail</label>
-                            <input type="email" placeholder="name@example.com" required>
+                            <label for="register email">E-mail 
+                                <div class='invalid' id="invalidRegisterEmail"></div></label>
+                            <input id="registerEmail" type="email" placeholder="name@example.com" required>
                         </div>
                         <div class="register-login-form-group">
-                            <label for="register password">Password</label>
-                            <input type="password" placeholder="" required>
+                            <label for="register password">Password 
+                                <div class='invalid' id="invalidRegisterPassword"></div></label>
+                            <input id="registerPassword" type="password" placeholder="" required>
                         </div>
                         <div class="register-login-form-group">
-                            <label for="confirm password">Confirm Password</label>
-                            <input type="password" placeholder="" required>
+                            <label for="confirm password" >Confirm Password 
+                                <div class='invalid' id="invalidConfirmPassword"></div></label>
+                            <input id="confirmPassword" type="password" placeholder="Re-write password" required>
                         </div>
-                        <p><input type="checkbox"> Subscribe to Newsletter</p>
-                        <button type="submit">Register</button>
+                        <p><input type="checkbox" id="subscribe"> Subscribe to Newsletter</p>
+                        <button type="submit" onclick="validateRegisterForm()">Register</button>
                     </form>
                 </div>
             </div>
@@ -100,15 +103,17 @@
                     <form action="">
                         <h1>Log In</h1><hr>
                         <div class="register-login-form-group">
-                            <label for="login email">E-mail</label>
-                            <input type="email" required>
+                            <label for="login email">E-mail 
+                                <div class='invalid' id="invalidLoginEmail"></div></label>
+                            <input id="loginEmail" type="email" required>
                         </div>
                         <div class="register-login-form-group">
-                            <label for="login password">Password</label>
-                            <input type="password" required>
+                            <label for="login password">Password 
+                                <div class='invalid' id="invalidLoginPassword"></div></label>
+                            <input id="loginPassword" type="password" required>
                         </div>
                         <p><input type="checkbox"> Remember me</p>
-                        <button type="submit">Log In</button>
+                        <button type="submit" onclick="validateLoginForm()">Log In</button>
                     </form>
                 </div>
             </div>
@@ -144,4 +149,68 @@
                     <p>Copyright 2023 TechZone Company. All rights reserved.</p>
                     <p>Designed by Dion Bajrami dhe Edin Gurgule</p>
                 </div>
+
+        <script>
+
+            var emailRegex = /^[a-zA-Z0-9.?-_+]+@+[a-z]+\.+[a-z]{2,3}$/;
+            var passwordRegex = /^[a-zA-Z0-9+=?,.!]{8,30}$/;
+
+            let registerEmailInput = document.getElementById('registerEmail');
+            let registerPasswordInput = document.getElementById('registerPassword');
+            let confirmPaswwordInput = document.getElementById('confirmPassword');
+
+            let loginEmailInput = document.getElementById('loginEmail');
+            let loginPasswordInput = document.getElementById('loginPassword');
+
+
+            let invalidRegisterEmail = document.getElementById('invalidRegisterEmail');
+            let invalidRegisterPassword = document.getElementById('invalidRegisterPassword');
+            let invalidConfirmPassword = document.getElementById('invalidConfirmPassword');
+
+            let invalidLoginEmail = document.getElementById('invalidLoginEmail');
+            let invalidLoginPassword = document.getElementById('invalidLoginPassword');
+
+
+            function validateRegisterForm(){
+                invalidRegisterEmail.innerText = '';
+                invalidRegisterPassword.innerText = '';
+                invalidConfirmPassword.innerText = '';
+
+                if(!emailRegex.test(registerEmailInput.value)){
+                    invalidRegisterEmail.innerText = 'Invalid email';
+                }else{
+                    invalidRegisterEmail.innerText = '';
+                }
+
+                if(!passwordRegex.test(registerPasswordInput.value)){
+                    invalidRegisterPassword.innerText = 'Invalid password';
+                }else{
+                    invalidRegisterPassword.innerText = '';
+                }
+
+                if(registerPasswordInput.value != confirmPaswwordInput.value){
+                    invalidConfirmPassword.innerText = 'Passwords don\'t match';
+                }else{
+                    invalidConfirmPassword.innerText = '';
+                }
+            }
+
+            function validateLoginForm(){
+                invalidLoginEmail.innerText = '';
+                invalidLoginPassword.innerText = '';
+
+                if(!emailRegex.test(loginEmailInput.value)){
+                    invalidLoginEmail.innerText = 'Invalid email';
+                }else{
+                    invalidLoginEmail.innerText = '';
+                }
+
+                if(!passwordRegex.test(loginPasswordInput.value)){
+                    invalidLoginPassword.innerText = 'Invalid password';
+                }else{
+                    invalidLoginPassword.innerText = '';
+                }
+            }
+
+        </script>
     </body>
