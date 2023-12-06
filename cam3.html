@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html> 
+
+    <head> 
+        <title> Camera 4 </title> 
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel ="icon" type ="image/png" href = "bolt_FILL0_wght400_GRAD0_opsz24.png">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    </head>
+    <script src="script.js"></script>
+    <header>
+        <span class="title">TechZone</span>
+            <a id="reg" href="reg.html"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img><a>
+                <div class="searchbox">
+                    <table class="elementbox">
+                        <tr>
+                            <td>
+                <input type="text" placeholder="Search" class="search">
+                </td>
+                <td>
+                <a href=""><i class="searchicon"><img src="search_FILL0_wght400_GRAD0_opsz24.png" alt="search"></i></a>
+            </td>
+         <tr>
+    </table>
+    </div>
+        <nav>
+            <div class="navbar">
+                 
+                <div class="links">
+                  <a href="Electronics Shop.html">
+                    <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
+                    <a href="Contact Us.html">Contact Us</a>
+                    <a href="NewA.html">New Arrivals</a>
+                    <a href="Cart.html"><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
+                  </div>
+
+
+                       <div class="dropdown">
+                        <button> ↓ Products</button>
+                       <div class="content">
+                        <a href="PowerCatg.html">Power</a>
+                        <a href="HDMICatg.html">HDMI</a>
+                        <a href="DronesCatg.html">Drones</a>
+                        <a href="LEDCatg.html">LED light</a>
+                        <a href="MACatg.html">Mobile Accessories</a>
+                        <a href="AudioCatg.html">Audio</a>
+                        <a href="ComponentsCatg.html">Components</a>
+                        <a href="VideoCatg.html">Video</a>
+
+
+                      </div>
+                      
+                      </div>
+                        
+               
+            </div>
+        </nav>
+    </header>
+    <body>
+        <div class="pContainer">
+            <div class="images">
+            <img src="produktet\Camera4.jpg" id='LargeImage' alt="Power Bank" class="p_main"></img>
+
+            <img src="produktet\Camera4.jpg" alt="Power Bank" class="p_preview"  onclick="NextImage(0)"></img>
+        
+            <br>
+            
+        </div>
+            <div class="info_container">
+            <div class="p_info">
+                <p class="ProductTitle">Video Camera Camcorder 4K 64MP 60FPS Lens</p>
+                <p class="ProductPrice">Price: $244.99</p>
+                    <div class="addcart" onclick="addToCart1(this);
+                    addToCart('Video Camera Camcorder 4K 64MP 60FPS', 244.99)">ADD TO CART</div>
+            </div>
+            </div>
+        </div>
+    
+       <div class="description">
+        <div class="desc">Description</div>
+        <p class="ProductTitle">Video Camera Camcorder 4K 64MP 60FPS</p>
+        <ul>
+            <li>🎥【4.0" Touch Screen & 4K 64MP Camcorder】The vlogging camera supports 4K Ultra HD 60PFS video resolution, 64MP image resolution,18X Digital Zoom. You can record every precious moment in your day-to-day life with this camcorder. This Youtube camera is great for vloggers and photography enthusiasts.</li>
+            <li>🎥【Auto Focus Function & Remote Control】This camcorders video camera 4k has a new autofocus function, it can automatically focus and clear imaging, whether far or near(>10cm), so you can get clear and beautiful pictures and videos. This 4K camcorder also supports a 2.4G 360° wireless remote control function, you can control your camera in any specific location.</li>
+            <li>🎥【Wifi Function & Webcam】The camcorders video camera 4k supports wifi function. You can download the "XDV PRO" APP on your phone to control the camera and transfer the videos and pictures easily to your phone. Also, this camcorder can be used as a webcam, you can instantly download, transfer, and share photos and videos via your mobile deviceto your friends and family.</li>
+            
+        </ul>
+             
+        </div>
+        <script>
+
+        var productImages = [
+                "produktet//Camera4.jpg"
+            ];
+
+            let pozita = 0;
+            let sliderImageElement = document.getElementById("LargeImage");
+
+           
+
+            function updateImage(index) {
+                sliderImageElement.src = productImages[index];
+                pozita = index;
+            }
+
+            function NextImage(index) {
+                updateImage(index);
+            }
+        
+            </script>
+    </body>
+</html>
