@@ -30,7 +30,7 @@
             <div class="navbar">
                  
                 <div class="links">
-                  <a href="Electronics Shop.php">
+                  <a href="index.php">
                     <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
                     <a href="Contact Us.php">Contact Us</a>
                     <a href="NewA.php">New Arrivals</a>

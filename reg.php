@@ -3,7 +3,7 @@
     <title> Electronics Shop </title>
     <head> 
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content=""IE=edge>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel ="icon" type ="image/png" href = "bolt_FILL0_wght400_GRAD0_opsz24.png">
         <link rel="stylesheet" href="style.css">
@@ -34,7 +34,7 @@
                 
                  
                 <div class="links">
-                  <a href="Electronics Shop.php">
+                  <a href="index.php">
                     <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
                     <a href="Contact Us.php">Contact Us</a>
                     <a href="NewA.php">New Arrivals</a>
@@ -70,7 +70,6 @@
         <div class="register-login-title">
             <h1>My Account</h1>
         </div>
-        <hr class="line">
         
         
         <div class="register-login-container">
@@ -81,17 +80,17 @@
                         <div class="register-login-form-group">
                             <label for="register email">E-mail 
                                 <div class='invalid' id="invalidRegisterEmail"></div></label>
-                            <input id="registerEmail" type="email" placeholder="name@example.com" required>
+                            <input id="registerEmail" type="email" placeholder="name@example.com" maxlength="35" required>
                         </div>
                         <div class="register-login-form-group">
                             <label for="register password">Password 
                                 <div class='invalid' id="invalidRegisterPassword"></div></label>
-                            <input id="registerPassword" type="password" placeholder="" required>
+                            <input id="registerPassword" type="password" placeholder="" maxlength="35" required>
                         </div>
                         <div class="register-login-form-group">
                             <label for="confirm password" >Confirm Password 
                                 <div class='invalid' id="invalidConfirmPassword"></div></label>
-                            <input id="confirmPassword" type="password" placeholder="Re-write password" required>
+                            <input id="confirmPassword" type="password" placeholder="Confirm Password" maxlength="35" required>
                         </div>
                         <p><input type="checkbox" id="subscribe"> Subscribe to Newsletter</p>
                         <button type="submit" onclick="validateRegisterForm()">Register</button>
@@ -105,12 +104,12 @@
                         <div class="register-login-form-group">
                             <label for="login email">E-mail 
                                 <div class='invalid' id="invalidLoginEmail"></div></label>
-                            <input id="loginEmail" type="email" required>
+                            <input id="loginEmail" type="email" maxlength="35" required>
                         </div>
                         <div class="register-login-form-group">
                             <label for="login password">Password 
                                 <div class='invalid' id="invalidLoginPassword"></div></label>
-                            <input id="loginPassword" type="password" required>
+                            <input id="loginPassword" type="password" maxlength="35" required>
                         </div>
                         <p><input type="checkbox"> Remember me</p>
                         <button type="submit" onclick="validateLoginForm()">Log In</button>
@@ -119,36 +118,9 @@
             </div>
         </div>
 
-        <footer>
-        
-            <div class="footermain">
-                    <div class="footerleft" >
-                        <div class="f">About TechZone</div>
-                        <p>At TechZone, we transcend the ordinary, propelling you into a realm where cutting-edge technology meets unparalleled convenience. Founded with a passion for innovation and a commitment to providing top-notch electronic solutions, TechZone is not just an online electronic shop; it's an experience.</p>
-                    </div>
-                    <div class="footercenter" >
-                        <div class="f">Our Links</div>
-                        <p>Advertise</p>
-                        <p>Support</p>
-                        <p>Our Company</p>
-                        <p>Contact</p>
-                    </div>
-                    <div class="footerright" >
-                        <div class="ff" >
-                            <a href=""><img src="facebook.png" alt="" width="32px" height="32px"></a>
-                            <a href=""><img src="twitter.png" alt="" width="32px" height="32px"></a>
-                            <a href=""><img src="instagram.png" alt="" width="32px" height="32px"></a>
-                           
-                        </div>
-                        <p>Terms of use</p>
-                        <p>Privacy Policy</p>
-                    </div>
-                </div>
-    
-                <div class="fundi">
-                    <p>Copyright 2023 TechZone Company. All rights reserved.</p>
-                    <p>Designed by Dion Bajrami dhe Edin Gurgule</p>
-                </div>
+        <?php 
+   include "footer.php";
+   ?>
 
         <script>
 
@@ -214,3 +186,4 @@
 
         </script>
     </body>
+    </html>

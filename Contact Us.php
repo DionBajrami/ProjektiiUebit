@@ -73,7 +73,7 @@
         <div class="navbar">
              
             <div class="links">
-              <a href="Electronics Shop.php">
+              <a href="index.php">
                 <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
                 <a href="Contact Us.php" style="border-bottom: 4px solid rgb(13, 218, 105);">Contact Us</a>
                 <a href="NewA.php">New Arrivals</a>
@@ -137,39 +137,9 @@
   
 </main>
 
-<footer>
-    <div class="f">
-        <p>About TechZone</p>
-        <p>Our Links</p>
-        <div class="ff" >
-            <a href=""><img src="facebook.png" alt="" width="32px" height="32px"></a>
-            <a href=""><img src="twitter.png" alt="" width="32px" height="32px"></a>
-            <a href=""><img src="instagram.png" alt="" width="32px" height="32px"></a>
-           
-        </div>
-    </div>
-    <div class="footermain">
-            <div class="footerleft" >
-                <p>At TechZone, we transcend the ordinary, propelling you into a realm where cutting-edge technology meets unparalleled convenience. Founded with a passion for innovation and a commitment to providing top-notch electronic solutions, TechZone is not just an online electronic shop; it's an experience.</p>
-            </div>
-            <div class="footercenter" >
-                <p>Advertise</p>
-                <p>Support</p>
-                <p>Our Company</p>
-                <p>Contact</p>
-            </div>
-            <div class="footerright" >
-                <p>Terms of use</p>
-                <p>Privacy Policy</p>
-            </div>
-        </div>
-
-
-        <div class="fundi">
-            <p>Copyright 2023 TechZone Company. All rights reserved.</p>
-            <p>Designed by Dion Bajrami & Edin Gurgule</p>
-        </div>
-    </footer>
+<?php 
+   include "footer.php";
+   ?>
 </body>
 </html>
 

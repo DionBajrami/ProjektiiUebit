@@ -28,7 +28,7 @@
             <div class="navbar">
                  
                 <div class="links">
-                  <a href="Electronics Shop.php">
+                  <a href="index.php">
                     <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
                     <a href="Contact Us.php">Contact Us</a>
                     <a href="NewA.php">New Arrivals</a>
@@ -63,7 +63,7 @@
         Your Shopping Cart Is Empty!
     </div>
     <button class="GoShopping">
-        <a href="Electronics Shop.php">
+        <a href="index.php">
             <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Click here to start shopping!
         </a>
     </button>
@@ -78,6 +78,6 @@
 
     <!--
     <p class="carttext">Your Shopping Cart Is Empty!</p>
-    <button class="GoShopping"><a href="Electronics Shop.php">
+    <button class="GoShopping"><a href="index.php">
         <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Click here to start shopping!</img></a></button>
         -->

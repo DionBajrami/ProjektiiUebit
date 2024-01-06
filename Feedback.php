@@ -12,6 +12,6 @@
 
     <p class="thanks">THANK YOU FOR YOUR FEEDBACK!</p>
     <div class="pages">
-        <a href="Electronics Shop.php" id="back">Go to Home page</a>
+        <a href="index.php" id="back">Go to Home page</a>
     </div>
     </html>

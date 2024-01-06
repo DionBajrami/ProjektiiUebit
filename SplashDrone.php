@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html> 
-    <title> Splash Drone </title> <!--Produkti i finalizuar-->
+    <title> Splash Drone </title> 
     <head> 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +29,7 @@
             <div class="navbar">
                  
                 <div class="links">
-                  <a href="Electronics Shop.php">
+                  <a href="index.php">
                     <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
                     <a href="Contact Us.php">Contact Us</a>
                     <a href="NewA.php">New Arrivals</a>
