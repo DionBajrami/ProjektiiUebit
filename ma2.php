@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html> 
+   
+    <head> 
+        <title> Mobile Accessories 2 </title> 
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel ="icon" type ="image/png" href = "bolt_FILL0_wght400_GRAD0_opsz24.png">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    </head>
+    <script src="script.js"></script>
+    <header>
+        <span class="title">TechZone</span>
+            <a id="reg" href="reg.php"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img><a>
+                <div class="searchbox">
+                    <table class="elementbox">
+                        <tr>
+                            <td>
+                <input type="text" placeholder="Search" class="search">
+                </td>
+                <td>
+                <a href=""><i class="searchicon"><img src="search_FILL0_wght400_GRAD0_opsz24.png" alt="search"></i></a>
+            </td>
+         <tr>
+    </table>
+    </div>
+        <nav>
+            <div class="navbar">
+                 
+                <div class="links">
+                  <a href="Electronics Shop.php">
+                    <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
+                    <a href="Contact Us.php">Contact Us</a>
+                    <a href="NewA.php">New Arrivals</a>
+                    <a href="Cart.php"><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
+                  </div>
+
+
+                       <div class="dropdown">
+                        <button> ↓ Products</button>
+                       <div class="content">
+                        <a href="PowerCatg.php">Power</a>
+                        <a href="HDMICatg.php">HDMI</a>
+                        <a href="DronesCatg.php">Drones</a>
+                        <a href="LEDCatg.php">LED light</a>
+                        <a href="MACatg.php">Mobile Accessories</a>
+                        <a href="AudioCatg.php">Audio</a>
+                        <a href="ComponentsCatg.php">Components</a>
+                        <a href="VideoCatg.php">Video</a>
+
+
+                      </div>
+                      
+                      </div>
+                        
+               
+            </div>
+        </nav>
+    </header>
+    <body>
+        <div class="pContainer">
+            <div class="images">
+            <img src="produktet\ma2.jpg" id='LargeImage' alt="Power Bank" class="p_main"></img>
+
+            <img src="produktet\ma2.jpg" alt="Power Bank" class="p_preview" id="PowerBank1" onclick="NextImage(0)"></img>
+            <br>
+            
+        </div>
+            <div class="info_container">
+            <div class="p_info">
+                <p class="ProductTitle">SUUSON Car Phone Holder Mount</p>
+                <p class="ProductPrice">Price: $9.99</p>
+                    <div class="addcart" onclick="addToCart1(this);
+                    addToCart('SUUSON Car Phone Holder Mount', 9.99)">ADD TO CART</div>
+            </div>
+            </div>
+        </div>
+    
+       <div class="description">
+        <div class="desc">Description</div>
+        <p class="ProductTitle">SUUSON Car Phone Holder Mount</p>
+        <ul>
+            <li>🔥[Three-in-one phone holder for car] Our phone holder for car allows you to install it on the ✔dashboard, ✔windshield or ✔vent without leaving any traces. This mobile phone holder provides you with a simple way to securely fix your mobile phone in place, and is ideal for cars.</li>
+            <li>🔥[Strong Adhesive Suction] The phone holder for car uses a powerful 3-layer viscous gel and a 1-step locking mechanism to provide strong suction on a smooth surface without leaving any residue. They will not fall off even when turning, bumping or driving at high speeds, and using TPU material can withstand temperatures from -4°F to 203°F. To restore the stickiness, simply rinse with warm water and dry. ❗❗Please note, most likely will not work on leather/ vinyl dashboards.</li>
+            <li>🔥[Easy operation, strong compatibility] One-handed lightly touch, release or lock the phone within a few seconds-super convenient to use while driving. The SUUSON car phone holder mount has adjustable feet, stronger and wider clips, making this phone holder for car suitable for all (4.0"-7.0") mobile phone and mobile.</li>
+            <li>🔥[Perfect protection, best design] The car phone holder mount is covered with a thick layer of silica gel. The unprecedented design makes the mobile device zero scratches. The internal mechanical structure ensures that the arm holds the phone firmly. No need to worry that your phone will not fall off even on the most bumpy road. 🔺If you have any product problems or installation problems, please feel free to contact us, we promise to always provide satisfactory solutions and serve you.</li>
+        </ul>
+             
+        </div>
+        <script>
+
+        var productImages = [
+                "produktet//ma2.jpg",
+
+            ];
+
+            let pozita = 0;
+            let sliderImageElement = document.getElementById("LargeImage");
+
+           
+
+            function updateImage(index) {
+                sliderImageElement.src = productImages[index];
+                pozita = index;
+            }
+
+            function NextImage(index) {
+                updateImage(index);
+            }
+        
+            </script>
+    </body>
+</html>
