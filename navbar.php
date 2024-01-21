@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html> 
-    <title> Cart </title>
+    <title> NavigationBar </title>
+    
     <head> 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,8 +12,16 @@
     </head>
     <header>
         <span class="title">TechZone</span>
-            <a id="reg" href="reg.php"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img><a>
-                <div class="searchbox" style="visibility: hidden;">
+        <?php
+                 session_start();
+
+                 if(isset($_SESSION['username'])){
+                    echo '<p>Welcome '. $_SESSION['username'] . ' | <a href = "logout.php">Log Out</a>';
+                 }else{
+                    echo '<a id="reg" href = "reg.php"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img></a>';
+                 }
+                 ?>
+                <div class="searchbox">
                     <table class="elementbox">
                         <tr>
                             <td>
@@ -26,18 +35,19 @@
     </div>
         <nav>
             <div class="navbar">
-                 <style>
-                    .searchbox{
-                        visibility: hidden;
-                    }
-                 </style>
+                 
                 <div class="links">
                   <a href="index.php">
                     <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
                     <a href="Contact Us.php">Contact Us</a>
                     <a href="NewA.php">New Arrivals</a>
-                    <a href="Cart.php" style="border-bottom: 4px solid rgb(13, 218, 105);"><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
-                  </div>
+                    <a href="Cart.php"><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
+                  <?php
+                  if(isset($_SESSION['role']) && ($_SESSION['role']=='admin')){
+                    echo '<a href="dashboard.php">Dashboard</a>';
+                  }
+                  ?>
+                </div>
 
 
 
@@ -47,7 +57,6 @@
                         <a href="PowerCatg.php">Power</a>
                         <a href="HDMICatg.php">HDMI</a>
                         <a href="DronesCatg.php">Drones</a>
-                        <a href="ComputersCatg.php">Computers</a>
                         <a href="LEDCatg.php">LED light</a>
                         <a href="MACatg.php">Mobile Accessories</a>
                         <a href="AudioCatg.php">Audio</a>
@@ -63,25 +72,6 @@
             </div>
         </nav>
     </header>
-    <div id="cart" class="carttext">
-        Your Shopping Cart Is Empty!
-    </div>
-    <button class="GoShopping">
-        <a href="index.php">
-            <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Click here to start shopping!
-        </a>
-    </button>
-</div>
-<footer>
-    <!--footer content -->
-</footer>
-<script src="script.js"></script>
-</body>
-</html>
-
-
-    <!--
-    <p class="carttext">Your Shopping Cart Is Empty!</p>
-    <button class="GoShopping"><a href="index.php">
-        <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Click here to start shopping!</img></a></button>
-        -->
+    <body>
+    </body>
+    </html>

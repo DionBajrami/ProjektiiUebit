@@ -1,6 +1,69 @@
+<?php
+include 'config.php';
+include 'user_functions.php';
+
+    session_start();
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register_submit'])){
+
+        $username = $_POST['register_username'];
+        $email    = $_POST['register_email'];
+        $password = $_POST['register_password'];
+
+        $result = registerusers($username, $email, $password);
+
+        if($result){
+            echo "Regjistrimi u krye me sukses";
+            session_start();
+            $_SESSION['username'] = $username;
+            header('location: index.php');
+            exit();
+        }else{
+            echo "Gabim gjate regjistrimit";
+        }
+    }
+    
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login_submit'])) {
+        $loginEmail = $_POST['login_email'];
+        $loginPassword = $_POST['login_password'];
+    
+
+       function login($loginEmail ,$loginPassword){
+        global $db;
+
+        $loginEmail = mysqli_real_escape_string($db, $loginEmail);
+
+        $query = "SELECT * FROM users WHERE email=?";
+        $stmt = mysqli_prepare($db, $query);
+        mysqli_stmt_bind_param($stmt, "s", $loginEmail);
+        mysqli_stmt_execute($stmt);
+    
+        $result = mysqli_stmt_get_result($stmt);
+    
+        if ($result && $user = mysqli_fetch_assoc($result)) {
+            if (password_verify($loginPassword, $user['password'])) {
+                return $user;
+            }
+        }
+        return false;
+       }
+        $user = login($loginEmail, $loginPassword);
+    
+        if ($user) {
+            $_SESSION['username'] = $user['username'];
+            header('location: index.php');
+            exit();
+        } else {
+            echo "Invalid login credentials";
+        }
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html> 
-    <title> Electronics Shop </title>
+    <title> Register Form </title>
     <head> 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +74,7 @@
     </head>
     <header>
         <span class="title">TechZone</span>
-             <a id="reg" href="reg.php"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img><a>
+             <a id="reg" href="reg.php"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img></a>
                 <div class="searchbox">
                     <table class="elementbox">
                         <tr>
@@ -21,7 +84,7 @@
                 <td>
                 <a href=""><i class="searchicon"><img src="search_FILL0_wght400_GRAD0_opsz24.png" alt="search"></i></a>
             </td>
-         <tr>
+            </tr>
     </table>
     </div>
     <style>
@@ -75,17 +138,20 @@
         <div class="register-login-container">
             <div class="sign-up-container">
                 <div class="register-login-box">
-                    <form action="">
+                    <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
                         <h1>Create Account</h1><hr>
                         <div class="register-login-form-group">
+                            <label for = "register_username">Username:</label>
+                            <input type = "text" name = "register_username" required>
+
                             <label for="register email">E-mail 
                                 <div class='invalid' id="invalidRegisterEmail"></div></label>
-                            <input id="registerEmail" type="email" placeholder="name@example.com" maxlength="35" required>
+                            <input id="registerEmail" name = "register_email" type="email" placeholder="name@example.com" maxlength="35" required>
                         </div>
                         <div class="register-login-form-group">
                             <label for="register password">Password 
                                 <div class='invalid' id="invalidRegisterPassword"></div></label>
-                            <input id="registerPassword" type="password" placeholder="" maxlength="35" required>
+                            <input id="registerPassword" name = "register_password" type="password" placeholder="" maxlength="35" required>
                         </div>
                         <div class="register-login-form-group">
                             <label for="confirm password" >Confirm Password 
@@ -99,17 +165,17 @@
             </div>
             <div class="log-in-container">
                 <div class="register-login-box">
-                    <form action="">
+                    <form method = "post" action="<?php echo $_SERVER['PHP_SELF'];?>">
                         <h1>Log In</h1><hr>
                         <div class="register-login-form-group">
                             <label for="login email">E-mail 
                                 <div class='invalid' id="invalidLoginEmail"></div></label>
-                            <input id="loginEmail" type="email" maxlength="35" required>
+                            <input id="loginEmail" name = "login_email" type="email" maxlength="35" required>
                         </div>
                         <div class="register-login-form-group">
                             <label for="login password">Password 
                                 <div class='invalid' id="invalidLoginPassword"></div></label>
-                            <input id="loginPassword" type="password" maxlength="35" required>
+                            <input id="loginPassword" name = "login_password" type="password" maxlength="35" required>
                         </div>
                         <p><input type="checkbox"> Remember me</p>
                         <button type="submit" onclick="validateLoginForm()">Log In</button>
