@@ -54,19 +54,19 @@ body{
 
 
 #reg{
+    display: flex;
     text-decoration: none;
     color: rgb(13, 218, 105);
     font-size: 1.2em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: inline-block;
     padding: 10px;
     float: right;
 
 }
 #reg:hover{
-    display: inline-block;
+    
     color:rgba(13, 218, 105, 0.459);
-    margin: auto;
+   
 }
 #reg img{
     margin: 3px;
@@ -75,8 +75,6 @@ body{
     vertical-align: middle;
    background-color: rgb(13, 218, 105);
    border-radius: 30px;
-   
-  
 }
 
 .searchbox{
@@ -730,3 +728,34 @@ footer{
         margin-top: 20px;
     }
 } 
+
+#username{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    color: rgb(13, 218, 105);
+    font-size: 1.2em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px;
+    margin: 0px;
+
+}
+
+#username img{
+    margin: 3px;
+    filter: brightness(1) invert(0);
+    height: 20px;
+    /*vertical-align: middle;*/
+   background-color: rgb(13, 218, 105);
+   border-radius: 30px;
+}
+
+.userContainer{
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	align-items: flex-end;
+	align-content: stretch;
+    float: inline-end;
+}

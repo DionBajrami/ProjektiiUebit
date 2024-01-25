@@ -1,64 +1,55 @@
 <?php
-include 'config.php';
+session_start();
+require 'users.php';
 include 'user_functions.php';
 
-    session_start();
+if (isset($_POST['regbtn'])) {
+    $username = $_POST['register_username'];
+    $email = $_POST['register_email'];
+    $password = $_POST['register_password'];
+    $role = 'user';
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register_submit'])){
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        $username = $_POST['register_username'];
-        $email    = $_POST['register_email'];
-        $password = $_POST['register_password'];
+    $userFunctions = new user_functions();
+    if ($userFunctions->exists($email, $username)) {
+        echo "<script>alert('User with this email or username already exists')</script>";
+    } else {
+        $user = new users($username, $email, $passwordHash, $role);
 
-        $result = registerusers($username, $email, $password);
+        try {
+            $userFunctions->insertUser($user);
 
-        if($result){
-            echo "Regjistrimi u krye me sukses";
-            session_start();
             $_SESSION['username'] = $username;
-            header('location: index.php');
+            $_SESSION['role'] = $role;
+            header("location:index.php");
             exit();
-        }else{
-            echo "Gabim gjate regjistrimit";
+        } catch (PDOException $err) {
+            echo "Error:" . $err->getMessage();
         }
     }
-    
-    
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login_submit'])) {
-        $loginEmail = $_POST['login_email'];
-        $loginPassword = $_POST['login_password'];
-    
+}
 
-       function login($loginEmail ,$loginPassword){
-        global $db;
-
-        $loginEmail = mysqli_real_escape_string($db, $loginEmail);
-
-        $query = "SELECT * FROM users WHERE email=?";
-        $stmt = mysqli_prepare($db, $query);
-        mysqli_stmt_bind_param($stmt, "s", $loginEmail);
-        mysqli_stmt_execute($stmt);
-    
-        $result = mysqli_stmt_get_result($stmt);
-    
-        if ($result && $user = mysqli_fetch_assoc($result)) {
-            if (password_verify($loginPassword, $user['password'])) {
-                return $user;
-            }
-        }
-        return false;
-       }
-        $user = login($loginEmail, $loginPassword);
-    
+if (isset($_POST['loginbtn'])) {
+    $loginEmail = $_POST['login_email'];
+    $loginPassword = $_POST['login_password'];
+    try {
+        $userFunctions = new user_functions();
+       
+        $user = $userFunctions->getUserByEmailAndPassword($loginEmail, $loginPassword);
         if ($user) {
+          
             $_SESSION['username'] = $user['username'];
-            header('location: index.php');
+            $_SESSION['role'] = $user['role'];
+            header('location:index.php');
             exit();
         } else {
-            echo "Invalid login credentials";
+            echo "<script>alert('Invalid email or password')</script>";
         }
+    } catch (PDOException $err) {
+        echo "Error: " . $err->getMessage();
     }
-    
+}
 ?>
 
 <!DOCTYPE html>
@@ -153,13 +144,7 @@ include 'user_functions.php';
                                 <div class='invalid' id="invalidRegisterPassword"></div></label>
                             <input id="registerPassword" name = "register_password" type="password" placeholder="" maxlength="35" required>
                         </div>
-                        <div class="register-login-form-group">
-                            <label for="confirm password" >Confirm Password 
-                                <div class='invalid' id="invalidConfirmPassword"></div></label>
-                            <input id="confirmPassword" type="password" placeholder="Confirm Password" maxlength="35" required>
-                        </div>
-                        <p><input type="checkbox" id="subscribe"> Subscribe to Newsletter</p>
-                        <button type="submit" onclick="validateRegisterForm()">Register</button>
+                        <button type="submit" name="regbtn" onclick="validateRegisterForm()">Register</button>
                     </form>
                 </div>
             </div>
@@ -178,7 +163,7 @@ include 'user_functions.php';
                             <input id="loginPassword" name = "login_password" type="password" maxlength="35" required>
                         </div>
                         <p><input type="checkbox"> Remember me</p>
-                        <button type="submit" onclick="validateLoginForm()">Log In</button>
+                        <button type="submit" name="loginbtn" onclick="validateLoginForm()">Log In</button>
                     </form>
                 </div>
             </div>
@@ -253,3 +238,6 @@ include 'user_functions.php';
         </script>
     </body>
     </html>
+    <?php
+    $conn = null;
+    ?>

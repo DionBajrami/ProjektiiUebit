@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html> 
     <title> NavigationBar </title>
@@ -13,13 +14,13 @@
     <header>
         <span class="title">TechZone</span>
         <?php
-                 session_start();
-
                  if(isset($_SESSION['username'])){
-                    echo '<p>Welcome '. $_SESSION['username'] . ' | <a href = "logout.php">Log Out</a>';
+                  echo '<div class = "userContainer">';
+                    echo '<span id="username"><img src="person_FILL0_wght400_GRAD0_opsz24.png">' . $_SESSION['username'] . '</span><a id="reg" href = "logout.php">Log Out</a>';
                  }else{
                     echo '<a id="reg" href = "reg.php"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img></a>';
                  }
+                 echo "</div>";
                  ?>
                 <div class="searchbox">
                     <table class="elementbox">
@@ -43,14 +44,13 @@
                     <a href="NewA.php">New Arrivals</a>
                     <a href="Cart.php"><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
                   <?php
+                  
                   if(isset($_SESSION['role']) && ($_SESSION['role']=='admin')){
-                    echo '<a href="dashboard.php">Dashboard</a>';
+                    echo '<a href="useri.php">Dashboard</a>';
                   }
+
                   ?>
                 </div>
-
-
-
                        <div class="dropdown">
                         <button> ↓ Products</button>
                        <div class="content">

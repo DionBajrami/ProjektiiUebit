@@ -12,6 +12,17 @@
     <script src="script.js"></script>
     <?php
    include 'navbar.php';
+   include 'products.php';
+
+   $hdmi1 = new Product(
+    "1 to 2 output HDMI splitter",
+    "produktet\AA6380.png",
+    "This 2 output HDMI high bandwidth Splitter is an advanced solution for splitting a HDMI signal to two HDMI displays. It provides high performance audio and video output through HDMI cables up to 1080p High Definition video with no data loss. HDCP 1.4 compliant Up to 1080P with 24bit RGB/YCBCR 4:4:4 VESA format up to QSXGA@60Hz Supports LPCM 7.1CH, Dolby TrueHD, and DTS-HD Master Audio Built-in equalizer, retiming and driver Smart EDID, STD(1080p) mode and TV(copy OUT1) mode Compact design for an easy and flexible installation",
+    29.99,
+    "HDMI"
+   );
+
+
    ?>
     <body>
         <div class="pContainer">
@@ -29,25 +40,18 @@
         </div>
             <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">2 Way HDMI 2.0 18GBPS UHD Splitter </p>
-                <p class="ProductPrice">Price: 29.99</p>
+                <p class="ProductTitle"><?php echo $hdmi1->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $hdmi1->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('2 Way HDMI 2.0 18GBPS UHD Splitter ', 29.99)">ADD TO CART</div>
+                    addToCart('<?php echo $hdmi1->getName()?> ', <?php echo $hdmi1->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">2 Way HDMI 2.0 18GBPS UHD Splitter </p>
-        <p>This 2 output HDMI high bandwidth Splitter is an advanced solution for splitting a HDMI signal to two HDMI displays. It provides high performance audio and video output through HDMI cables up to 1080p High Definition video with no data loss. 
-            HDCP 1.4 compliant
-            Up to 1080P with 24bit RGB/YCBCR 4:4:4
-            VESA format up to QSXGA@60Hz
-            Supports LPCM 7.1CH, Dolby TrueHD, and DTS-HD Master Audio
-            Built-in equalizer, retiming and driver
-            Smart EDID, STD(1080p) mode and TV(copy OUT1) mode
-            Compact design for an easy and flexible installation</p>
+        <p class="ProductTitle"><?php echo $hdmi1->getName()?> </p>
+        <p><?php echo $hdmi1->getDescription()?></p>
         </div>
         <script>
 

@@ -1,34 +1,95 @@
 <?php
-include 'config.php';
+include_once('DatabaseConnection.php');
 
-    function registerusers($username,$email,$password,$role = 'user'){
+    class user_functions{
+        private $connection;
 
-    global $db;
-
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    $query = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
-
-    $stmt = mysqli_prepare($db, $query);
-    mysqli_stmt_bind_param($stmt,"ssss",$username,$email,$hashedPassword,$role);
-
-    $result = mysqli_stmt_execute($stmt);
-
-    mysqli_stmt_close($stmt);
-
-    return $result;
-    }
-
-    function getAllUsers(){
-        global $db;
-
-        $query = "SELECT * FROM users";
-        $result = mysqli_query($db,$query);
-
-        $users = array();
-        while($row = mysqli_fetch_assoc($result)){
-            $users[] = $row;
+        public function __construct(){
+            $conn = new DatabaseConnection;
+            $this->connection = $conn->startConnection();
         }
+
+        public function insertUser($user){
+            $conn = $this->connection;
+            
+            $username = $user->getUsername();
+            $email = $user->getEmail();
+            $password = $user->getPassword();
+            $role = $user->getRole();
+            
+            $sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
+            
+            try {
+                $statement = $conn->prepare($sql);
+                $statement->execute([$username, $email, $password, $role]);
+                echo "<script>alert('U shtua me sukses')</script>";
+            } catch (PDOException $e) {
+                echo "<script>alert('Error: " . $e->getMessage() . "')</script>";
+                error_log("Error in insertUser: " . $e->getMessage(), 0);
+            }
+        }
+        
+    
+
+    public function getAllUsers(){
+        $conn = $this->connection;
+        
+        $sql = "SELECT * FROM users";
+        $statement = $conn->query($sql);
+        
+        $users = $statement->fetchAll();
         return $users;
     }
+
+    public function editUser($id, $username, $email, $password, $role){
+        $conn = $this->connection;
+        $sql = "UPDATE users SET username=?, email=?, password=?, role=? WHERE id=?";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([$username, $email, $password, $role, $id]);
+
+        echo "<script>console.log('U ndryshua me sukses')</script>";
+    }
+
+    function deleteUser($id){
+        $conn = $this->connection;
+        $sql = "DELETE FROM users WHERE id=?";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([$id]);
+    }
+
+    function getUserById($id){
+        $conn = $this->connection;
+        $sql="SELECT * FROM users WHERE id=?";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([$id]);
+        $user=$statement->fetch();
+
+        return $user;
+    }
+
+    function getUserByEmailAndPassword($email,$password){
+        $conn = $this->connection;
+        $sql="SELECT * FROM users WHERE email=? AND password=?";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([$email,$password]);
+        $user=$statement->fetch();
+
+       return $user;
+    }
+
+    function exists($email, $username){
+        $conn = $this->connection;
+        $sql ="SELECT * FROM users WHERE email=? AND username=?";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([$email, $username]);
+        $user=$statement->fetch();
+
+        return $user;
+    }
+}
 ?>
