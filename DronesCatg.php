@@ -1,92 +1,69 @@
+<?php
+include 'navbar.php';
+include_once 'products.php';
+include_once 'product_functions.php';
+
+$productFunctions = new product_functions();
+
+
+$categoryToShow = 'Drone';
+
+$productsByCategory = $productFunctions->getProductByCategory($categoryToShow);
+
+
+$productLinks = [
+    3 => 'RCDrone.php',
+    4 => 'GPSDrone.php',
+    9 => 'DreamDrone.php',
+    47 => 'SplashDrone.php',
+    48 => 'MJXDrone.php',
+    49 => 'SymaDrone.php'
+];
+
+?>
+
 <!DOCTYPE html>
-<html> 
-    <title> Drones </title>
-    
-    <head> 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel ="icon" type ="image/png" href = "bolt_FILL0_wght400_GRAD0_opsz24.png">
-        <link rel="stylesheet" href="style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    </head>
-    <?php
-   include 'navbar.php';
-   ?>
-    <body>
-        <h1>Drones</h1>
-        <div class="shopcontainer">
-        <div class="products">
-            <a href="RCDrone.php"><img src="produktet\TR3128.jpg" alt="RC Micro folidng drone with Wi-Fi FPV HD Cam" class="img"></img></a>
-            <div class="info">
-                <a href="RCDrone.php">RC Micro Folidng Drone </a>
-                <p class="price">$69.99</p>
-                <div class="addcart" onclick="addToCart1(this);
-                addToCart('RC Micro Folidng Drone with Wi-Fi FPV HD Cam', 69.99)">ADD TO CART</div>
-                </div>
-        </div> 
+<html>
+ <title> Drones Category </title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="bolt_FILL0_wght400_GRAD0_opsz24.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
 
-        <div class="products">
-            <a href="GPSDrone.php"><img src="produktet\TR6070a.jpg" alt="GPS Drone with 4K 2 Axis" class="img"></img></a>
-            <div class="info">
-                <a href="GPSDrone.php">GPS Drone with 4K 2 Axis </a>
-                <p class="price">$499.99</p>
-                <div class="addcart" onclick="addToCart1(this);
-                addToCart('GPS Drone with 4K 2 Axir', 499.99)">ADD TO CART</div>
-                </div>
-        </div> 
-        
-        <div class="products">
-            <a href="DreamDrone.php"><img src="produktet\TR3763.jpg" alt="DREAM GPS WIFI 1080P FPV CAMERA DRONE W/ BRUSHLESS MOTOR & 2 AXIS GIMBAL" class="img"></img></a>
-            <div class="info">
-                <a href="DreamDrone.php">Dream RC GPS WiFi 1080p FPV Drone</a>
-                <p class="price">$399.99</p>
-                <div class="addcart" onclick="addToCart1(this);
-                addToCart('DREAM GPS WIFI 1080P FPV CAMERA DRONE W/ BRUSHLESS MOTOR & 2 AXIS GIMBAL', 399.99)">ADD TO CART</div>
-                </div>
-        </div> 
+<body>
+    <h1><?php echo $categoryToShow; ?></h1>
+    <div class="shopcontainer">
 
-        <div class="products">
-            <a href="SplashDrone.php"><img src="produktet\TR3989.jpg" alt="SPLASHDRONE 4 WATERPROOF FISHING DRONE - BASE PLATFORM" class="img"></img></a>
-            <div class="info">
-                <a href="SplashDrone.php">SPLASHDRONE 4 WATERPROOF FISHING DRONE - BASE PLATFORM</a>
-                <p class="price">$3399.99</p>
-                <div class="addcart" onclick="addToCart1(this);
-                addToCart('SPLASHDRONE 4 WATERPROOF FISHING DRONE - BASE PLATFORM', 3399.99)">ADD TO CART</div>
-                </div>
-        </div> 
+        <?php
 
-        <div class="products">
-            <a href="MJXDrone.php"><img src="produktet\TR3810a (4).jpg" alt="MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES" class="img"></img></a>
-            <div class="info">
-                <a href="MJXDrone.php">MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES</a>
-                <p class="price">$499.99</p>
-                <div class="addcart" onclick="addToCart1(this);
-                addToCart('MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES', 499.99)">ADD TO CART</div>
-                </div>
-        </div> 
+foreach ($productsByCategory as $powerProducts) {
+    if (is_array($powerProducts)) {
+        $productId = (int) $powerProducts['id'];
+        $productLink = isset($productLinks[$productId]) ? $productLinks[$productId] : '#';
 
-        <div class="products">
-            <a href="SymaDrone.php"><img src="produktet\TR3290.jpg" alt="SYMA X5SW RC WI-FI FPV DRONE SYMA WITH HD CAMERA" class="img"></img></a>
-            <div class="info">
-                <a href="SymaDrone.php">SYMA X5SW RC WI-FI FPV DRONE SYMA WITH HD CAMERA</a>
-                <p class="price">$99.99</p>
-                <div class="addcart" onclick="addToCart1(this);
-                addToCart('SYMA X5SW RC WI-FI FPV DRONE SYMA WITH HD CAMERA', 99.99)">ADD TO CART</div>
-                </div>
-        </div> 
+        echo "<div class='products'>";
+        echo "<a href='{$productLink}'><img src='{$powerProducts['imagePath']}' alt='{$powerProducts['name']}' class='img'></img></a>";
+        echo "<div class='info'>";
+        echo "<a href='{$productLink}'>{$powerProducts['name']}</a>";
+        echo "<p class='price'>$ {$powerProducts['price']}</p>";
+        echo "<div class='addcart' onclick=\"addToCart1(this); addToCart('{$powerProducts['name']}', {$powerProducts['price']})\">ADD TO CART</div>";
+        echo "</div></div>";
+    } else {
+        echo "<p>No products found in the category: {$categoryToShow}</p>";
+    }
+}
+        ?>
 
-        
-        </div>
+    </div>
 
-        <?php 
-   include "footer.php";
-   ?>
-    
-    
-    
-        </div>
-        <script src="script.js"></script>
-    
-    </body>
-    </html>
+    <?php include "footer.php"; ?>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

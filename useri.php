@@ -21,7 +21,42 @@ $users = $uf->getAllUsers();
 </header>
 <body>
     <div class="UsersContainer" style="margin:10px">
-        <table border = 1>
+        <table class ="useriTable" border = 1>
+
+    <style>
+        .useriTable{
+            padding: 10px;
+            font-size: 14px;
+            width: 100%;
+            margin:auto;
+            margin-top:30px;
+            border:none;
+         
+        }
+        .useriTable thead{
+            border: 2px solid black;
+            font-family: "Press Start 2P", "consolas", sans-serif;
+            height:50px;
+            background-color:black;
+            color: white;
+            
+        }
+        .useriTable tbody{
+            border: 2px solid black;
+            font-weight:bold;
+            background-color:lightgray;
+            font-size:18px
+        }
+        #edit{
+            width:30px;
+            background-color:lime;
+        }
+        #delete{
+            background-color:red;
+            width:30px;
+        }
+    </style>
+
             <thead>
             <tr>
                 <th>Username</th>
@@ -35,8 +70,8 @@ $users = $uf->getAllUsers();
                         <td><?php echo $user['username'];?></td>
                         <td><?php echo $user['email'];?></td>
                         <td><?php echo $user['role'];?></td>
-                        <td><a href='edit.php?id=<?php echo $user['id']?>'><img src="edit_FILL0_wght400_GRAD0_opsz24.png" style="background-color:lime;border-radius:5px;width:20px"></a></img></td>
-                        <td><a href='delete.php?id=<?php echo $user['id']?>'><img src="delete_FILL0_wght400_GRAD0_opsz24.png" style="background-color:red;border-radius:5px;width:20px"></a></img></td>
+                        <td id="edit"><a href='edit.php?id=<?php echo $user['id']?>'><img src="edit_FILL0_wght400_GRAD0_opsz24.png" style="background-color:lime;border-radius:5px;width:100%"></a></img></td>
+                        <td id="delete"><a href='delete.php?id=<?php echo $user['id']?>'><img src="delete_FILL0_wght400_GRAD0_opsz24.png" style="background-color:red;border-radius:5px;width:100%"></a></img></td>
                     </tr>
                 <?php }?>
             </tbody>

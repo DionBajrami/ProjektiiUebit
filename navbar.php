@@ -1,7 +1,7 @@
 <?php session_start();?>
 <!DOCTYPE html>
 <html> 
-    <title> NavigationBar </title>
+   
     
     <head> 
         <meta charset="UTF-8">
@@ -23,6 +23,11 @@
                  echo "</div>";
                  ?>
                 <div class="searchbox">
+                  <style>
+                    .searchbox{
+                      visibility: hidden;
+                    }
+                  </style>
                     <table class="elementbox">
                         <tr>
                             <td>

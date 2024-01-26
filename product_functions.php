@@ -72,8 +72,9 @@ include_once('DatabaseConnection.php');
         $conn = $this->connection;
         $sql = "SELECT * FROM products WHERE category=?";
 
+        $statement = $conn->prepare($sql);
         $statement->execute([$category]);
-        $product=$statement->fetch();
+        $product=$statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $product;
     }

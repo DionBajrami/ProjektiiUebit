@@ -25,8 +25,6 @@
         <h1>Featured Products</h1>
         <div class="shopcontainer">
 
- 
-
         <?php
         $productLinks = [
             1 => "hdmi1.php",

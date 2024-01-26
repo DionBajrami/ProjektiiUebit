@@ -1,135 +1,69 @@
+<?php
+include 'navbar.php';
+include_once 'products.php';
+include_once 'product_functions.php';
+
+$productFunctions = new product_functions();
+
+
+$categoryToShow = 'Components';
+
+$productsByCategory = $productFunctions->getProductByCategory($categoryToShow);
+
+
+$productLinks = [
+    21 => 'm1.php',
+    5 => 'Power Bank.php',
+    22 => 'm2.php',
+    23 => 'm3.php',
+    24 => 'm4.php',
+    25 => 'm5.php'
+];
+
+?>
+
 <!DOCTYPE html>
-<html> 
-    <title> Components </title>
-    
-    <head> 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel ="icon" type ="image/png" href = "bolt_FILL0_wght400_GRAD0_opsz24.png">
-        <link rel="stylesheet" href="style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    </head>
-    <header>
-        <span class="title">TechZone</span>
-          <a id="reg" href="reg.php"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img><a>
-                <div class="searchbox">
-                    <table class="elementbox">
-                        <tr>
-                            <td>
-                <input type="text" placeholder="Search" class="search">
-                </td>
-                <td>
-                <a href=""><i class="searchicon"><img src="search_FILL0_wght400_GRAD0_opsz24.png" alt="search"></i></a>
-            </td>
-         <tr>
-    </table>
+<html>
+ <title> Components Category </title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="bolt_FILL0_wght400_GRAD0_opsz24.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h1><?php echo $categoryToShow; ?></h1>
+    <div class="shopcontainer">
+
+        <?php
+
+foreach ($productsByCategory as $powerProducts) {
+    if (is_array($powerProducts)) {
+        $productId = (int) $powerProducts['id'];
+        $productLink = isset($productLinks[$productId]) ? $productLinks[$productId] : '#';
+
+        echo "<div class='products'>";
+        echo "<a href='{$productLink}'><img src='{$powerProducts['imagePath']}' alt='{$powerProducts['name']}' class='img'></img></a>";
+        echo "<div class='info'>";
+        echo "<a href='{$productLink}'>{$powerProducts['name']}</a>";
+        echo "<p class='price'>$ {$powerProducts['price']}</p>";
+        echo "<div class='addcart' onclick=\"addToCart1(this); addToCart('{$powerProducts['name']}', {$powerProducts['price']})\">ADD TO CART</div>";
+        echo "</div></div>";
+    } else {
+        echo "<p>No products found in the category: {$categoryToShow}</p>";
+    }
+}
+        ?>
+
     </div>
-        <nav>
-            <div class="navbar">
-                 
-                <div class="links">
-                  <a href="index.php">
-                    <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
-                    <a href="Contact Us.php">Contact Us</a>
-                    <a href="NewA.php">New Arrivals</a>
-                    <a href="Cart.php"><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
-                  </div>
 
+    <?php include "footer.php"; ?>
 
+    <script src="script.js"></script>
 
-                       <div class="dropdown">
-                        <button> ↓ Products</button>
-                       <div class="content">
-                        <a href="PowerCatg.php">Power</a>
-                        <a href="HDMICatg.php">HDMI</a>
-                        <a href="DronesCatg.php">Drones</a>
-                        <a href="LEDCatg.php">LED light</a>
-                        <a href="MACatg.php">Mobile Accessories</a>
-                        <a href="AudioCatg.php">Audio</a>
-                        <a href="ComponentsCatg.php">Components</a>
-                        <a href="VideoCatg.php">Video</a>
+</body>
 
-
-                      </div>
-                      
-                      </div>
-                        
-               
-            </div>
-        </nav>
-    </header>
-    <body>
-        <h1>Components</h1>
-        <div class="shopcontainer">
-            
-            <div class="products">
-                <a href="m1.php"><img src="produktet\SP0270.jpg" alt="Power Bank" class="img"></img></a>
-                <div class="info">
-                    <a href="m1.php">42000mAh Portable Power Generator with Inverter</a>
-                    <p class="price">$299.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('42000mAh Portable Power Generator with Inverter', 299.99)">ADD TO CART</div>
-                    </div>
-            </div> 
-
-            <div class="products">
-                <a href="Power Bank.php"><img src="produktet\PS1069.jpg" alt="Power Bank" class="img"></img></a>
-                <div class="info">
-                    <a href="Power Bank.php">Power Bank with 2 x USB and Wireless charger</a>
-                    <p class="price">$189.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Power Bank with 2 x USB and Wireless charger', 189.99)">ADD TO CART</div>
-                    </div>
-            </div> 
-
-            <div class="products">
-                <a href="m2.php"><img src="produktet\PS3454.jpg" alt="Power Bank" class="img"></img></a>
-                <div class="info">
-                    <a href="m2.php">POWER SUPPLY POWERPACK WITH 2.1 DC PLUG</a>
-                    <p class="price">$9.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('POWER SUPPLY POWERPACK WITH 2.1 DC PLUG', 9.99)">ADD TO CART</div>
-                    </div>
-            </div> 
-
-            <div class="products">
-                <a href="m3.php"><img src="produktet\PS2319.jpg" alt="Power Bank" class="img"></img></a>
-                <div class="info">
-                    <a href="m3.php">DESKTOP POWER ADAPTER WITH 2.5MM DC PLUG</a>
-                    <p class="price">$19.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('DESKTOP POWER ADAPTER WITH 2.5MM DC PLUG', 19.99)">ADD TO CART</div>
-                    </div>
-            </div> 
-
-            <div class="products">
-                <a href="m4.php"><img src="produktet\PS1065.jpg" alt="Power Bank" class="img"></img></a>
-                <div class="info">
-                    <a href="m4.php">10,000mAh USB-C PD Power Delivery Power Bank</a>
-                    <p class="price">$49.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('10,000mAh USB-C PD Power Delivery Power Bank', 49.99)">ADD TO CART</div>
-                    </div>
-            </div> 
-
-            <div class="products">
-                <a href="m5.php"><img src="produktet\SR2015.jpg" alt="Power Bank" class="img"></img></a>
-                <div class="info">
-                    <a href="m5.php">Wireless 1080p Covert Camera Alarm Clock</a>
-                    <p class="price">$99.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Wireless 1080p Covert Camera Alarm Clock', 99.99)">ADD TO CART</div>
-                    </div>
-            </div> 
-        
-        </div>
-        
-        <?php 
-   include "footer.php";
-   ?>
-        </div>
-        <script src="script.js"></script>
-
-    </body>
-    </html>
+</html>

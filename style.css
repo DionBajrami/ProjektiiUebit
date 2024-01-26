@@ -1,8 +1,6 @@
 header{
     background-color: black;
     color: rgb(255, 255, 255);
-   
-
 }
 @media screen and (max-width:850px){
     .shopcontainer {
@@ -10,6 +8,7 @@ header{
         flex-direction: column; 
     
     }
+
 
     .products {
         width: 100%; 
@@ -122,6 +121,7 @@ body{
 
 
 .navbar{
+    width:100%;
     background: black;
     border-top: 3px solid white;
     text-align: center;
