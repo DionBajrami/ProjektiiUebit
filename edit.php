@@ -1,7 +1,7 @@
 <?php
 include 'user_functions.php';
-$id = isset($_GET['id']) ? $_GET['id'] : null;
 
+$id = isset($_GET['id']) ? $_GET['id'] : null;
 $uf = new user_functions();
 $user = $uf->getUserById($id);
 ?>
@@ -13,9 +13,7 @@ $user = $uf->getUserById($id);
     <title>Edit Users</title>
 </head>
 <header>
-    <?php
-    include "navbar.php";
-    ?>
+    <?php include "navbar.php";?>
 </header>
 <body>
     <style>
@@ -47,19 +45,68 @@ $user = $uf->getUserById($id);
         }
 
     </style>
-    <div style="display:flex; flex-direction:column">
+     <div style="display:flex; flex-direction:column">
         <p class="title" style="display:flex;align-items:center;justify-content:center">Edit User</p>
         <div class="EditUser" style="display:flex">
             <p style="border-bottom:3px solid lime;font-family: 'Press Start 2P', 'sans-serif';"><?php echo $user['id']?></p><br>
-            <form action="<?php echo $_SERVER['PHP_SELF']?>" method='post'>
-                <input type="text" name="username" value="<?php echo $user['username']?>"> <br>
-                <input type="text" name="email" value="<?php echo $user['email']?>"> <br>
-                <input type="text" name="password" value="<?php echo $user['password']?>"> <br>
-                <input type="text" name="role" value="<?php echo $user['role']?>"> <br> 
-                <input type="submit" name="edit" value="save">
+            <form action="<?php echo $_SERVER['PHP_SELF']?>?id=<?php echo $user['id']?>" method='post'>
+                <input type="text" id="eUsername" name="username" value="<?php echo $user['username']?>"> <br>
+                <div class="invalid" id="invalidEmail">
+                <input type="text" id="eEmail" name="email" value="<?php echo $user['email']?>"> <br>
+                </div>
+                <div class="invalid" id="invalidPassword">
+                <input type="text" id="ePassword" name="password" value="<?php echo $user['password']?>"> <br>
+                </div>
+                <div class="invalid" id="invalidRole">
+                <input type="text" id="eRole" name="role" value="<?php echo $user['role']?>"> <br> 
+                </div>
+                <input type="submit" onclick="validateEdit()" name="edit" value="Save">
             </form>
         </div>
     </div>
+    <script>
+        
+            let emailRegex = /^[a-zA-Z0-9_]+@+[a-z]+\.+[a-z]{2,4}$/;
+            let passwordRegex = /^[a-zA-Z0-9]{8,30}$/;
+            let roleRegex = /^(admin|user)$/;
+
+
+            let email = document.getElementById('eEmail');
+            let password = document.getElementById('ePassword');
+            let role = document.getElementById('eRole');
+
+            let invalidEmail = document.getElementById('invalidEmail');
+            let invalidPassword = document.getElementById('invalidPassword');
+            let invalidRole = document.getElementById('invalidRole');
+
+            function validateEdit(){
+                invalidEmail.innerText='';
+                invalidPassword.innerText='';
+                invalidRole.innerText='';
+
+                if(!emailRegex.test(email.value)){
+                    invalidEmail.innerText = 'Invalid Email';
+                }else{
+                    invalidEmail.innerText = '';
+                }
+
+                if(!passwordRegex.test(password.value)){
+                    invalidPassword.innerText = 'Invalid Password';
+                }else{
+                    invalidPassword.innerText = '';
+                }
+
+                if(!roleRegex.test(role.value)){
+                    invalidRole.innerText = 'Role must be "admin" or "user"';
+                }else{
+                    invalidRole.innerText = '';
+                }
+
+            }
+
+
+        
+    </script>
 </body>
 </html>
 
@@ -71,7 +118,7 @@ if(isset($_POST['edit'])){
     $password = $_POST['password'];
     $role = $_POST['role'];
 
-    $uf->editUser($username, $email, $password, $role);
+    $uf->editUser($id, $username, $email, $password, $role);
     header('location:useri.php');
 }
 ?>

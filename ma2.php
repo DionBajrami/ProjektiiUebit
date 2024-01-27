@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
    
@@ -11,9 +30,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
+
     <body>
         <div class="pContainer">
             <div class="images">
@@ -25,24 +42,18 @@
         </div>
             <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">SUUSON Car Phone Holder Mount</p>
-                <p class="ProductPrice">Price: $9.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('SUUSON Car Phone Holder Mount', 9.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">SUUSON Car Phone Holder Mount</p>
-        <ul>
-            <li>🔥[Three-in-one phone holder for car] Our phone holder for car allows you to install it on the ✔dashboard, ✔windshield or ✔vent without leaving any traces. This mobile phone holder provides you with a simple way to securely fix your mobile phone in place, and is ideal for cars.</li>
-            <li>🔥[Strong Adhesive Suction] The phone holder for car uses a powerful 3-layer viscous gel and a 1-step locking mechanism to provide strong suction on a smooth surface without leaving any residue. They will not fall off even when turning, bumping or driving at high speeds, and using TPU material can withstand temperatures from -4°F to 203°F. To restore the stickiness, simply rinse with warm water and dry. ❗❗Please note, most likely will not work on leather/ vinyl dashboards.</li>
-            <li>🔥[Easy operation, strong compatibility] One-handed lightly touch, release or lock the phone within a few seconds-super convenient to use while driving. The SUUSON car phone holder mount has adjustable feet, stronger and wider clips, making this phone holder for car suitable for all (4.0"-7.0") mobile phone and mobile.</li>
-            <li>🔥[Perfect protection, best design] The car phone holder mount is covered with a thick layer of silica gel. The unprecedented design makes the mobile device zero scratches. The internal mechanical structure ensures that the arm holds the phone firmly. No need to worry that your phone will not fall off even on the most bumpy road. 🔺If you have any product problems or installation problems, please feel free to contact us, we promise to always provide satisfactory solutions and serve you.</li>
-        </ul>
-             
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -66,5 +77,14 @@
             }
         
             </script>
+        <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

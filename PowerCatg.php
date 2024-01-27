@@ -39,11 +39,10 @@ $productLinks = [
     <div class="shopcontainer">
 
         <?php
-
 foreach ($productsByCategory as $powerProducts) {
     if (is_array($powerProducts)) {
         $productId = (int) $powerProducts['id'];
-        $productLink = isset($productLinks[$productId]) ? $productLinks[$productId] : '#';
+        $productLink = isset($productLinks[$productId]) ? "{$productLinks[$productId]}?productID={$productId}" : '#';
 
         echo "<div class='products'>";
         echo "<a href='{$productLink}'><img src='{$powerProducts['imagePath']}' alt='{$powerProducts['name']}' class='img'></img></a>";

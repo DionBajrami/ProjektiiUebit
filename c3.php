@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> 5V 2.1A USB PORT WALL CHARGER BLACK </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <style>
 
@@ -34,20 +50,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">5V 2.1A USB PORT WALL CHARGER BLACK</p>
-                <p class="ProductPrice">Price: $9.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('5V 2.1A USB PORT WALL CHARGER BLACK', 9.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">5V 2.1A USB PORT WALL CHARGER BLACK</p>
-        <p>A 240VAC Mains charger with a total output of 2.1 Amps. Charge your electronic devices such as smartphones and tablets simultaneously with this USB Wall Charger. Black colour. Meets Australian SAA Safety standards.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -75,6 +91,14 @@
         
         
             </script>
-           
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

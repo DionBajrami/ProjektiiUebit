@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> Audio 4</title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -23,27 +39,23 @@
             <img src="produktet\Pink.jpg" alt="Power Bank" class="p_preview"  onclick="NextImage(2)"></img>
             <img src="produktet\Green.jpg" alt="Power Bank" class="p_preview"  onclick="NextImage(3)"></img>
         </div>
-        
-
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">Foldable Over-Ear Bluetooth 5.0 Headphones</p>
-                <p class="ProductPrice">Price: $49.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Foldable Over-Ear Bluetooth 5.0 Headphones', 49.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">Foldable Over-Ear Bluetooth 5.0 Headphones</p>
-        <p>These wireless headphones are equipped with Bluetooth 5.0 technology and A2DP support to enable audio transmission from your smart device or computer within a distance of up to 10M. In addition to Bluetooth, you can also play audio from 3.5mm audio sources using the provided 3.5mm audio cable.
-            The headset features dynamic 40mm drivers that deliver deep bass. It has a built-in microphone that is ideal for hands-free phone calls. The soft, cushioned earpads and an adjustable, padded plastic headband offer exceptional comfort.
-            The wireless headset has a built-in 200mAh lithium battery that supports up to 6 hours of playtime in wireless mode and can be recharged from your computer or an optional USB charger (USB cable provided). They are easy to use and foldable for convenient storage in your backpack.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -71,5 +83,14 @@
             }
         
             </script>
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

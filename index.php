@@ -52,8 +52,8 @@
                     $productDetails['category']
                 );
 
-                $currentProductLink = isset($productLinks[$productId]) ? $productLinks[$productId] : '#';
-
+                $currentProductLink = isset($productLinks[$productId]) ? "{$productLinks[$productId]}?productID={$productId}" : '#';
+               
                 echo "<div class='products'>";
                 echo "<a href='{$currentProductLink}'><img src='{$product->getImagePath()}' alt='{$product->getName()}' class='img'></img></a>";
                 echo "<div class='info'>";

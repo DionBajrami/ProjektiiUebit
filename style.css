@@ -506,6 +506,10 @@ font-size: 30px;
     z-index: 1;
 }
 
+.images{
+    width: 600px;
+}
+
 .largeImage {
     max-width: 90%;
     max-height: 90%;
@@ -758,4 +762,61 @@ footer{
 	align-items: flex-end;
 	align-content: stretch;
     float: inline-end;
+}
+
+.ccontainer {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+
+    width: 70%;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.c form {
+    margin-bottom: 20px;
+}
+
+.cform textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.cform button {
+    padding: 10px 20px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment {
+    border-bottom: 2px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+   
+}
+
+.comment p {
+    margin: 0;
+}
+
+.csection {
+    font-size: 14px;
+    color: #555;
+}
+
+.noComments {
+    color: #555;
+    font-size: 14px;
 }

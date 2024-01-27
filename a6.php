@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> Audio 5</title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -24,24 +40,23 @@
             <img src="produktet\AS2002 (3).jpg" alt="Power Bank" class="p_preview"  onclick="NextImage(3)"></img>
         </div>
         
-
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">RECHARGEABLE BLUETOOTH PA SPEAKER WITH MIC INPUT</p>
-                <p class="ProductPrice">Price: $149.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('RECHARGEABLE BLUETOOTH PA SPEAKER WITH MIC INPUT', 149.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">RECHARGEABLE BLUETOOTH PA SPEAKER WITH MIC INPUT</p>
-        <p>This portable 12” speaker has an in-built amplifier and rechargeable battery which is perfect for parties, functions or karaoke nights. Play your music from a Bluetooth® source, USB flash drive, microSD card or auxiliary input. An FM radio receiver is even included and has 3-6 hours playback time from the internal SLA battery. The wireless UHF microphone provides PA functionality, with its own volume and echo controls to mix it into the backing track playing. The USB and microSD card slot can be used for recording while singing your favourite song. Control of inputs and playback is via the on-board control panel or included remote control, while a clear 1.2” LED screen provides information on current playback and settings. A colour changing RGB LED light is located in the speaker box which provides a little visual entertainment too. It features an extendable trolley handle and wheels, so it’s ready to go anywhere. Includes UHF wireless microphone, infrared remote control and mains power adaptor.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -67,5 +82,14 @@
             }
         
             </script>
+       <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

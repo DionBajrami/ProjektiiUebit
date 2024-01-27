@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> RCDrone </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -28,38 +44,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">KY905 RC Micro Folding Drone with Wi-Fi FPV HD Camera</p>
-                <p class="ProductPrice">Price: 69.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('KY905 RC Micro Folding Drone with Wi-Fi FPV HD Camera', 69.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">KY905 RC Micro Folding Drone with Wi-Fi FPV HD Camera</p>
-        <p>Probably the smallest folding drone in the market with a Wifi FPV HD Camera. Not much larger than than a match box, the HD camera on this tiny drone is adjustable up and down and sends real time video as well as high resolution photos directly to your smartpone. The smartphone clips onto a bracket integrated on the remote control, you are able to view and record the photos and videos directly on to your smartphones screen.
-            Despite the small size, the drone is very easy to fly with its host of features such as barometric pressure sensor for altitude hold flight; one button take off and landing and speed switch to mach your flight skill level. Also features 360 degree stunt function, smartphone control and one click return.
-            The KY905 Drone measures at a mere 7 x 6.5 x 3 cm in size (folded), it is safely housed inside the remote controller when not in use. Comes with a carry case bag, making it great for travel.
-            Suitable for all iOS and Android Phones. 
-            Specifcation:
-            Product material: ABS
-            Product folded size (CM): 7.5*6*3cm
-            Product unfolded size (CM): 10*10*3cm
-            Storage bag size (CM): 22*17*6.5cm
-            Color box size (CM): 24.5*17*6.8cm
-            Product color: metallic gray
-            Packing method: storage bag
-            Remote control battery (included): built-in lithium battery
-            Battery parameters: 500 MAH
-            Flight time: 10 minutes
-            Charging time: about 60-70 minutes
-            Remote control distance: about 150 meters
-            WIFI image transmission distance: about 100 meter
-            Camera: 4K (interpolted)</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -85,5 +83,14 @@
             }
         
             </script>
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

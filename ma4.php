@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
    
@@ -11,9 +30,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -23,29 +39,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">Turtle Beach Atom Mobile Game Controller with Bluetooth</p>
-                <p class="ProductPrice">Price: $74.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Turtle Beach Atom Mobile Game Controller with Bluetooth', 74.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">Turtle Beach Atom Mobile Game Controller with Bluetooth</p>
-        <ul>
-            <li>Convenient, Compact Shape Magnetically Fuses Together</li>
-            <li>Low Latency Bluetooth Connection to iPhones</li>
-            <li>Built for Cloud Gaming on GeForce Now, Steam Link, and More</li>
-            <li>Familiar Controls for a Console Experience on Mobile</li>
-            <li>Adjustable Phone Clamps fit all iPhone 15,14,13,12, &11 models</li>
-            <li>Long-Lasting 20-Hour Battery with Quick-Charge</li>
-           
-        </ul>
-             
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -69,5 +76,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

@@ -40,17 +40,17 @@ $productLinks = [
 
         <?php
 
-foreach ($productsByCategory as $powerProducts) {
-    if (is_array($powerProducts)) {
-        $productId = (int) $powerProducts['id'];
-        $productLink = isset($productLinks[$productId]) ? $productLinks[$productId] : '#';
+foreach ($productsByCategory as $HDMIProducts) {
+    if (is_array($HDMIProducts)) {
+        $productId = (int) $HDMIProducts['id'];
+        $productLink = isset($productLinks[$productId]) ? "{$productLinks[$productId]}?productID={$productId}" : '#';
 
         echo "<div class='products'>";
-        echo "<a href='{$productLink}'><img src='{$powerProducts['imagePath']}' alt='{$powerProducts['name']}' class='img'></img></a>";
+        echo "<a href='{$productLink}'><img src='{$HDMIProducts['imagePath']}' alt='{$HDMIProducts['name']}' class='img'></img></a>";
         echo "<div class='info'>";
-        echo "<a href='{$productLink}'>{$powerProducts['name']}</a>";
-        echo "<p class='price'>$ {$powerProducts['price']}</p>";
-        echo "<div class='addcart' onclick=\"addToCart1(this); addToCart('{$powerProducts['name']}', {$powerProducts['price']})\">ADD TO CART</div>";
+        echo "<a href='{$productLink}'>{$HDMIProducts['name']}</a>";
+        echo "<p class='price'>$ {$HDMIProducts['price']}</p>";
+        echo "<div class='addcart' onclick=\"addToCart1(this); addToCart('{$HDMIProducts['name']}', {$HDMIProducts['price']})\">ADD TO CART</div>";
         echo "</div></div>";
     } else {
         echo "<p>No products found in the category: {$categoryToShow}</p>";

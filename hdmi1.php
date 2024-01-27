@@ -1,3 +1,23 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
+
 <!DOCTYPE html>
 <html> 
     <title> HDMI1 </title>
@@ -10,20 +30,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   include 'products.php';
-
-   $hdmi1 = new Product(
-    "1 to 2 output HDMI splitter",
-    "produktet\AA6380.png",
-    "This 2 output HDMI high bandwidth Splitter is an advanced solution for splitting a HDMI signal to two HDMI displays. It provides high performance audio and video output through HDMI cables up to 1080p High Definition video with no data loss. HDCP 1.4 compliant Up to 1080P with 24bit RGB/YCBCR 4:4:4 VESA format up to QSXGA@60Hz Supports LPCM 7.1CH, Dolby TrueHD, and DTS-HD Master Audio Built-in equalizer, retiming and driver Smart EDID, STD(1080p) mode and TV(copy OUT1) mode Compact design for an easy and flexible installation",
-    29.99,
-    "HDMI"
-   );
-
-
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -40,22 +46,22 @@
         </div>
             <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle"><?php echo $hdmi1->getName()?> </p>
-                <p class="ProductPrice">Price: $<?php echo $hdmi1->getPrice()?></p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('<?php echo $hdmi1->getName()?> ', <?php echo $hdmi1->getPrice()?>)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle"><?php echo $hdmi1->getName()?> </p>
-        <p><?php echo $hdmi1->getDescription()?></p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
-        <script>
 
-        var productImages = [
+        <script>
+            var productImages = [
                 "produktet//AA6380.png",
                 "produktet//AA6380.jpg",
                 "produktet//AA6380 (1).jpg"
@@ -74,7 +80,15 @@
             function NextImage(index) {
                 updateImage(index);
             }
-        
-            </script>
+        </script>
+        <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

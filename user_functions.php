@@ -22,7 +22,7 @@ include_once('DatabaseConnection.php');
             try {
                 $statement = $conn->prepare($sql);
                 $statement->execute([$username, $email, $password, $role]);
-                echo "<script>alert('U shtua me sukses')</script>";
+                echo "<script>alert('Successfully added!')</script>";
             } catch (PDOException $e) {
                 echo "<script>alert('Error: " . $e->getMessage() . "')</script>";
                 error_log("Error in insertUser: " . $e->getMessage(), 0);
@@ -48,7 +48,7 @@ include_once('DatabaseConnection.php');
         $statement = $conn->prepare($sql);
         $statement->execute([$username, $email, $password, $role, $id]);
 
-        echo "<script>console.log('U ndryshua me sukses')</script>";
+        echo "<script>console.log('Changes made')</script>";
     }
 
     function deleteUser($id){

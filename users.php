@@ -13,7 +13,9 @@ class users{
         $this->role=$role;
     }
 
-   
+   public function getUserId(){
+    return $this->id;
+   }
     public function getUsername(){
         return $this->username;
     }

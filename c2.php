@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> Headphones </title> 
@@ -10,38 +29,29 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
             <img src="produktet\AH0074.jpg" id='LargeImage' alt="Power Bank" class="p_main"></img>
 
             <img src="produktet\AH0074.jpg" alt="Power Bank" class="p_preview" id="PowerBank1" onclick="NextImage(0)"></img>
-        
-
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">SteelSeries Arctis Nova 1 Multi-System Gaming Headset </p>
-                <p class="ProductPrice">Price: $49.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('SteelSeries Arctis Nova 1 Multi-System Gaming Headset ', 49.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">SteelSeries Arctis Nova 1 Multi-System Gaming Headset </p>
-        <p>Introducing the SteelSeries Arctis Nova 1 Multi-System Gaming Headset – where cutting-edge technology meets immersive gaming experience. These headphones redefine the boundaries of gaming audio, offering a blend of sleek design, unparalleled comfort, and mind-blowing sound quality.
-
-            Crafted with precision, the Arctis Nova 1 boasts a futuristic design that seamlessly combines form and function. The sleek matte finish, accented with RGB lighting, gives it a modern and stylish appearance that stands out in any gaming setup. The ear cups, cushioned with plush memory foam, cradle your ears in comfort, allowing for extended gaming sessions without any discomfort.
-            
-            What truly sets the Arctis Nova 1 apart is its multi-system compatibility. Whether you're a console enthusiast, a PC gamer, or someone who enjoys mobile gaming, these headphones have got you covered. Equipped with a versatile connectivity system, it effortlessly adapts to various gaming platforms, providing an immersive audio experience no matter where your gaming journey takes you.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -64,5 +74,14 @@
             }
         
             </script>
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

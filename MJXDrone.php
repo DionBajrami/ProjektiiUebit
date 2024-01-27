@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> MJX Drone </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <style>
 
@@ -37,23 +53,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES</p>
-                <p class="ProductPrice">Price: $499.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES', 499.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES</p>
-        <p>2 Battery Fly More Pack for a total of 40 Minutes Flight Time.
-            The newly upgraded Bugs 5W is a GPS Brushless Drone with a 4K FPV Camera with a one axis Gimbal. The upgraded MT2204 brushless motor drone is powerful and can withstand light wind conditions; withs its powerful 4K HD Wi-fi Camera and wide angle lens, it is able to stream real time video directly to your smartphone for viewing and recording up to 300m away. The single axis gimbal stabilisation system assists in keeping the recording stable and allows camera angle position for you to capture the desired photo and video.
-            Equipped with a digital 2.4GHz two way remote controller with a 1km control range, it is able to notify the user under low battery or low signal to ensure reliable connection to the Bugs 5W drone at all time. The GPS functionality matched with Barometric pressure sensor, it offers amazing stable flight and altitude positioning plus a one key return to home functionality.  
-            An amazing full featured drone suitable for beginners and advance flyers. Offers great bang for your buck with stable performance and quality to match.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -78,9 +91,16 @@
             function NextImage(index) {
                 updateImage(index);
             }
-        
-        
             </script>
-           
+            
+           <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

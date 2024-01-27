@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
    
@@ -11,9 +30,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -23,25 +39,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">LISEN Phone Mount for Car Vent [Never Blocking]</p>
-                <p class="ProductPrice">Price: $7.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('LISEN Phone Mount for Car Vent [Never Blocking]', 7.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">LISEN Phone Mount for Car Vent [Never Blocking]</p>
-        <ul>
-            <li>[Enjoy Never Blocking Vent]: With the unique extension-arm and free angle adjustment, this car phone holder vent can make your phone avoid the influence of a/c airflow (None damage to the life of the phone), which also helps you get the comfort brought by the a/c in the car to a greater extent (No blocking airflow). Your driving will be happier and more enjoyable. It is the best choice for your air vent phone holder!</li>
-            <li>[Hook the Vent Stably & Never Falling]: The upgraded metal hook wrapped in plastic can firmly hook the vent blades, which also protects your car vent from being scratched or damaged. We believe it will do you a favor. When installing, the hook forms a three-point mechanical support with the baffle to provide double protection for the. Even on the bumpy road, sharp turn, speed bump, emergency brake and other steep road conditions, the phone holder for car won't slip or fall off.</li>
-            <li>[One Second Release, Wide Compatibility]: Just a simple touch with the bottom on back of the phone mount , the phone holder for car will release or lock your cell phone within 1 second. Super easy to use while driving. LISEN car vent phone mount with adjustable foot, thicker and wider clamp, making phone mount for car vent fit for all phones (4.0-7.0 inches) and phone cases, such as iPhone 15 pro max.</li>
-        </ul>
-             
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -65,5 +76,14 @@
             }
         
             </script>
+   <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

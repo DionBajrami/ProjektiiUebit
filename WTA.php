@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> World travel adapter </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <style>
 
@@ -30,25 +46,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">World Travel Adapter</p>
-                <p class="ProductPrice">Price: $5.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('World Travel Adapter', 5.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
-        <div class="desc">Description</div>
-        <p class="ProductTitle">World Travel Adapter</p>
-        <p>This universal or world inbound travel plug adapter allows you to use overseas devices and mains powered devices and be able to plug directly to Australian and New Zealand Mains Power Sockets and Outlets.
-            Travel Adaptor or Incoming tourists to Australia & New Zealand
-            Compatible with plugs from many countries including:
-            Great Britain, Europe(non-earthed), Singapore, Ireland, Middle East, Africa, Asia, Canada, Japan, Philippines, Taiwan, Hong Kong, Bali, Tahiti, USA, South America…
-            NOTE:
-            This adaptor DOES NOT convert Voltages. Australian Appliances require 240V, if your device is not 240V, you must use an appropriate transformer.</p>
+       <div class="desc">Description</div>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -70,9 +81,15 @@
             function NextImage(index) {
                 updateImage(index);
             }
-        
-        
             </script>
-           
+            <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

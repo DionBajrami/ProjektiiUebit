@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> led2 </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -27,21 +43,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">SMART WI-FI SECURITY LED FLOOD LIGHT WITH MOTION SENSOR</p>
-                <p class="ProductPrice">Price: $119.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('SMART WI-FI SECURITY LED FLOOD LIGHT WITH MOTION SENSOR', 119.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">SMART WI-FI SECURITY LED FLOOD LIGHT WITH MOTION SENSOR</p>
-        <p>This 2 x 13W Smart Wifi LED security spot light with a motion sensor will instantly react to intruders by turning lights on when it detects motion. It has light level controls to prevent daytime operation and timer controls to adjust the length of time the light is on. IP54 rated to suit outdoor operation. 26W LEDs, swivel and rotatable stand, Die-cast metal construction, 240Vac screw terminals (Requires electrician installation).
-            The 2x 13W smart double head outdoor security spot light with motion sensor allows intruder detection and turn on the light when the motion sensor is triggered. This LED is managed by the Tuya smart App available on the Apple App Store, or Google Play Store. You can use the App to adjust colour temperature from warm white (3000K) to cool white (6000K). The App can also adjust the motion detection range and the level of brightness the ambient light sensor will triggered. The enclosure is IP65 ingress rated to suit indoor or outdoor use. The LED heads and motion sensor are adjustable.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -66,5 +81,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

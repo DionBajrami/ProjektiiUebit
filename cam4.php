@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
 
@@ -11,9 +30,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -24,26 +40,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">Noorio B200 Security Camera Wireless Outdoor</p>
-                <p class="ProductPrice">Price: $87.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Noorio B200 Security Camera Wireless Outdoor', 87.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">Noorio B200 Security Camera Wireless Outdoor</p>
-        <ul>
-            <li>Built-in Spotlight: The motion-activated spotlight illuminates the surroundings when motion is detected and stops unwanted visitors. Color night vision shows more details.</li>
-            <li>Advanced AI Detection: Only human movements can be detected and trigger video recording, differentiating between humans and other subjects like animals, swaying trees, and cars.</li>
-            <li>No Hidden Costs: Store up to 3000 pieces of footage in 8GB local storage without a subscription. Not support external storage method. Limited FREE cloud service is available via our customer support!</li>
-            <li>100% Wire-free: Allow for completely wire-free installation anywhere, outdoor or indoor, and keep being motion-activated 24/7 with the built-in rechargeable battery for 180 days.</li>
-        </ul>
-             
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -66,5 +76,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

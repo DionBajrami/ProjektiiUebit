@@ -9,123 +9,71 @@
         <link rel="stylesheet" href="style.css">
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
+	
     <?php
    include 'navbar.php';
+   include_once 'products.php';
+   include_once 'product_functions.php';
+
+   $productIDs = [9,41,30,8,23,14,17,22,19];
+
+    $productFunctions = new product_functions();
+
+
    ?>
     <body>
         <h1>New Arrivals</h1>
         <div class="shopcontainer">
 
- 
-            <div class="products">
-                <a href="led5.php">  <img src="produktet/OP1502.jpg" alt="20W IP65 Portable Rechargeable LED Work Light" class="img"></img></a>
-                <div class="info">
-                    <a href="led5.php">20W IP65 Portable Rechargeable LED Work Light</a>
-                    <p class="price">$74.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('20W IP65 Portable Rechargeable LED Work Light', 74.99)">ADD TO CART</div>
-                    </div>
-            </div> 
-
-          
-
-            <!-- Produkti 2-->
-            <div class="products">
-                <a href="c4.php"> <img src="produktet\PB5171.jpg" alt="Adapter" class="img"></img></a>
-                <div class="info">
-                    <a href="c4.php">C13 IEC 10A MAINS REWIREABLE SOCKET</a>
-                    <p class="price">$6.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('C13 IEC 10A MAINS REWIREABLE SOCKET', 6.99)">ADD TO CART</div>
-                    </div>
-            </div>  
+        <?php
+        $productLinks = [
+            9 => "DreamDrone.php",
+            41 => "ma6.php",
+            30 => "a6.php",
+            8 => "c2.php",
+            23 => "m3.php",
+            14 => "c6.php",
+            17 => "cam2.php",
+            22 => "m2.php",
+            19 => "cam5.php"
            
-            <!-- Produkti 3-->
-            <div class="products">
-                <a href="ma4.php"> <img src="produktet\MA4.jpg" alt="Camera" class="img"></img></a>
-                <div class="info">
-                    <a href="ma4.php">Turtle Beach Atom Mobile Game Controller with Bluetooth</a>
-                    <p class="price">$74.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Turtle Beach Atom Mobile Game Controller with Bluetooth', 74.99)">ADD TO CART</div>
-                    </div>
-            </div> 
+        ];
 
-            <!-- Produkti 4 i finalizuar-->
-            <div class="products">
-                <a href="hdmi4.php"><img src="produktet\AA6020.jpg" alt="1 to 2 output HDMI splitter" class="img"></img></a>
-                    <div class="info">
-                     <a href="hdmi4.php">2 WAY HDMI AV SPLITTER</a>
-                     <p class="price">$29.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                        addToCart('1 to 2 output HDMI Splitter', 29.99)">ADD TO CART</div>
-                        </div>
-                </div>
-            
-            <!-- Produkti 5-->
-            <div class="products">
-                <a href="SymaDrone.php"><img src="produktet\TR3290.jpg" alt="SYMA X5SW RC WI-FI FPV DRONE SYMA WITH HD CAMERA" class="img"></img></a>
-                <div class="info">
-                    <a href="SymaDrone.php">SYMA X5SW RC WI-FI FPV DRONE SYMA WITH HD CAMERA</a>
-                    <p class="price">$99.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('SYMA X5SW RC WI-FI FPV DRONE SYMA WITH HD CAMERA', 99.99)">ADD TO CART</div>
-                    </div>
-            </div> 
+        foreach($productIDs as $productId){
+            $productDetails = $productFunctions->getProductById($productId);
+        
+       
+        if ($productDetails) {
+            $product = new Product(
+                $productDetails['name'],
+                $productDetails['imagePath'],
+                $productDetails['description'],
+                $productDetails['price'],
+                $productDetails['category']
+            );
 
-            <!-- Produkti 6-->
-            <div class="products">
-                <a href="c1.php">  <img src="produktet\PS2015.jpg" alt="USB port charger" class="img"></img></a>
-                <div class="info">
-                    <a href="c1.php">5V USB Port Mains Charger</a>
-                    <p class="price">$9.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('5V USB Port Mains Charger', 9.99)">ADD TO CART</div>
-                    </div>
-            </div>  
+            $currentProductLink = isset($productLinks[$productId]) ? "{$productLinks[$productId]}?productID={$productId}" : '#';
+           
+            echo "<div class='products'>";
+            echo "<a href='{$currentProductLink}'><img src='{$product->getImagePath()}' alt='{$product->getName()}' class='img'></img></a>";
+            echo "<div class='info'>";
+            echo "<a href='{$currentProductLink}'>{$product->getName()}</a>";
+            echo "<p class='price'>$ {$product->getPrice()}</p>";
+            echo "<div class='addcart' onclick=\"addToCart1(this); addToCart('{$product->getName()}', {$product->getPrice()})\">ADD TO CART</div>";
+            echo "</div></div>";
+        }else {
+            echo "<p>No product was found with the given ID</p>";
+        }
+    }
+            ?>
 
-            <!-- Produkti 7-->
-            <div class="products">
-                <a href="c2.php">  <img src="produktet\AH0074.jpg" alt="SteelSeries black headphones" class="img"></img></a>
-                <div class="info">
-                    <a href="c2.php">SteelSeries Arctis Nova 1 Multi-System Gaming Headset</a>
-                    <p class="price">$49.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('SteelSeries Arctis Nova 1 Multi-System Gaming Headset', 49.99)">ADD TO CART</div>
-                    </div>
-            </div>  
-
-            <!-- Produkti 8-->
-            <div class="products">
-                <a href="led2.php">  <img src="produktet/SR2050.jpg" alt="SMART WI-FI SECURITY LED FLOOD LIGHT WITH MOTION SENSOR" class="img"></img></a>
-                <div class="info">
-                    <a href="led2.php">SMART WI-FI SECURITY LED FLOOD LIGHT WITH MOTION SENSOR</a>
-                    <p class="price">$119.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('SMART WI-FI SECURITY LED FLOOD LIGHT WITH MOTION SENSOR', 119.99)">ADD TO CART</div>
-                    </div>
-            </div> 
-
-            <!-- Produkti 9-->
-            <div class="products">
-                <a href="MJXDrone.php"><img src="produktet\TR3810a (4).jpg" alt="MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES" class="img"></img></a>
-                <div class="info">
-                    <a href="MJXDrone.php">MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES</a>
-                    <p class="price">$499.99</p>
-                    <div class="addcart" onclick="addToCart1(this);
-                    addToCart('MJX BUGS 5W BRUSHLESS GPS WIFI 4K FPV DRONE WITH 2 BATTERIES', 499.99)">ADD TO CART</div>
-                    </div>
-            </div> 
 
             
         </div>
 
-        <?php 
+ 
+   <?php 
    include "footer.php";
    ?>
-
-
-    </div>
-    <script src="script.js"></script>
 </body>
 </html>

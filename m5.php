@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     
@@ -11,9 +30,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -24,25 +40,23 @@
             <img src="produktet\SR2015 (2).jpg" alt="Power Bank" class="p_preview"  onclick="NextImage(2)"></img>
          
         </div>
-        
-
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">WIRELESS 1080P COVERT CAMERA ALARM CLOCK</p>
-                <p class="ProductPrice">Price: $99.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('WIRELESS 1080P COVERT CAMERA ALARM CLOCK', 99.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">WIRELESS 1080P COVERT CAMERA ALARM CLOCK</p>
-        <p>Looks like an alarm clock, but has an in-built 1080p camera capable of streaming directly to your iOS/Android phone via the Tuya SmartLife app. Functions as a normal alarm clock. In-built microphone and speaker for two way communication. Powered by USB input or via 2 x 18650 lithium cells (S 4739). Ideal for the living room or study. Size: 200 x 179 x 123mm.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -68,5 +82,14 @@
             }
         
             </script>
+      <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

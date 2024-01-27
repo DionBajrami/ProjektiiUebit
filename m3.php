@@ -1,6 +1,24 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
-    
     <head> 
         <title> Components 4</title> 
         <meta charset="UTF-8">
@@ -11,9 +29,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
+
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -28,29 +44,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">DESKTOP POWER ADAPTER WITH 2.5MM DC PLUG</p>
-                <p class="ProductPrice">Price: $19.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('DESKTOP POWER ADAPTER WITH 2.5MM DC PLUG', 19.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">DESKTOP POWER ADAPTER WITH 2.5MM DC PLUG</p>
-        <p>240V AC to 12V DC regulated 10A (10000mAh) Desktop Power adaptor / power pack with a 1.5m cable terminated with a 2.5 DC plug  (2.5ID x 5.5OD x 10L). Supplied with a 2m IEC Power Lead for connection to a 240V mains socket.
-            Energy authority approved. MEPS approved. Dimensions: 170 x 60 x 40mm.
-            
-            Suitable power supply for your electronic devices such as modems, clocks, printers, LED lights, security cameras, etc.
-            
-            Switchmode or switching power adapter which supplies regulated voltage to your electronic device.
-            
-            2.1mm DC Plug Centre Positive
-            
-            Australian SAA safety approved.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -74,5 +81,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

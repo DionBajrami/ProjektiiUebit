@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> led4 </title> 
@@ -10,9 +29,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
+
     <body>
         <div class="pContainer">
             <div class="images">
@@ -25,19 +42,18 @@
         </div>
             <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">RECHARGEABLE 600 LUMENS CREE XML LED T6 HEAD LAMP TORCH</p>
-                <p class="ProductPrice">Price: $39.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('RECHARGEABLE 600 LUMENS CREE XML LED T6 HEAD LAMP TORCH', 39.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">RECHARGEABLE 600 LUMENS CREE XML LED T6 HEAD LAMP TORCH</p>
-        <p>This high performance headlamp is suitable for working in darkness where you need both hands to be free. It features the incredibly bright and long life CREE XML-T6 LED, which is capable of producing up to 600 Lumens of cool white light. The LED lamp can be tilted 100°. Marine aluminium construction with glass lens and rubber push-button IP66. Soft elastic straps are adjustable to fit different users, helmets, etc. The LED lamp has 3 different operation modes including full or half brightness, plus strobe. It has a long beam range up to 300M. Replaceable rechargeable Li-Ion batteries 18650 for 3200mAh 3.7V (each x2). Can last 2hrs (Full) 4hrs (half). The head lamp unit can be recharged in 4hrs with the 500mA 4.2V power pack included.
-             </p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -60,5 +76,14 @@
             }
         
             </script>
+   <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

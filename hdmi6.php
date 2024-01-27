@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> HDMI6 </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -29,19 +45,18 @@
         </div>
             <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">3 INPUT HDMI SWITCH WITH AUDIO EXTRACTOR </p>
-                <p class="ProductPrice">Price: $29.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('3 INPUT HDMI SWITCH WITH AUDIO EXTRACTOR', 29.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">3 INPUT HDMI SWITCH WITH AUDIO EXTRACTOR</p>
-        <p>A high performance 3 HDMI input selector to 1 HDMI output switch box. This HDMI switch integrates an Audio Extractor via via line level stereo and digital toslink audio for connection to a wireless heaphone, amplified speaker or a receiver. It also has an infra-red extender for control of input devices.
-            It also features ARC and EDID selector functon. The system supports all 3D TV formats in addition to all HDTV formats up to 4Kx2K. Furthermore, the remote control gives complete control over the selection of sources and makes the device incredibly user friendly.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -66,5 +81,14 @@
             }
         
             </script>
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

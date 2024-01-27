@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
 
@@ -11,9 +30,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
+
     <body>
         <div class="pContainer">
             <div class="images">
@@ -24,26 +41,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">VETEK Digital Cameras for Photography</p>
-                <p class="ProductPrice">Price: $99.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('VETEK Digital Cameras for Photography', 99.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">VETEK Digital Cameras for Photography</p>
-        <ul>
-            <li>📸【Camera for Photoggraphy and Video】The digital camera featuring 4K video and 48MP photo resolution, the vlogging camera supports 16X Digital Zoom, Video Pause, Recording while Charging, Loop Recording, Continuous Shooting, Silent Recording, Self-Timer. with the latest upgraded chip to ensure the camcorder images more high-definition, more realistic. It’s the best gift for friends and family.</li>
-            <li>📸【Digital Camera with Wide Angle Lens & Macro Lens】The 4K camera equipped the camera with a professional detachable 52mm wide angle lens with macro lens, so the camera is great for capturing wide horizons easily, and macro lenses capture the diversity of the tiny world. Sharp 4K photos can be ruled out with manual focus. With a knob on the top of the camera, you can switch between photos, video, time-lapse photography and other features.</li>
-            <li>📸【Vlogging Camera with PC camera & HDMI output】The vlogging camera can be connected to the PC via a USB cable. Then you can choose "Mass Storage Mode" to transfer files to your computer or choose "PC Camera" to use it as a PC camera to enjoy video chat or live broadcast. If you want to play the video you shoot, the digital camera supports HDMI function, you can use HDMI cable to directly connect to HDTV (HDMI cable is not included).</li>
-            <li>📸【Best Choice for Beginners】This digital camera is very suitable for entry-level users and is a great gift for beginners. This digital camera has a compact design, measures 4.5*1.7*3inches, weighs 0.57lb (with battery), and also comes with a ¼ standard tripod thread (tripod not included) and a hot shoe. If you have any problem, please feel free to contact us and we will provide the best solution for you within 24 hours. And we provide three months free replacement and refund service.</li>
-        </ul>
-             
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -66,5 +77,14 @@
             }
         
             </script>
+      <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

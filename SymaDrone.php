@@ -1,6 +1,25 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
-    <title> Syma Drone </title> <!--Produkti i finalizuar-->
+    <title> Syma Drone </title>
     <head> 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <style>
 
@@ -35,48 +51,21 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">Syma X5SW RC Wi-Fi FPV Drone Syma with HD Camera</p>
-                <p class="ProductPrice">Price:$99.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Syma X5SW RC Wi-Fi FPV Drone Syma with HD Camera', 99.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">Syma X5SW RC Wi-Fi FPV Drone Syma with HD Camera</p>
-        <p>TThe Syma X5SW quadcopter drone is known for its super stable fligth performance and ease of control. It features a 2MP high definition camera that transmits real time video directly to your smartphone.</p>
-        <ul>
-            <h3>Features</h3>
-            <li>HD Camera Recorder</li>
-            <li> Takes Photos and Videos</li>
-         <li> Saves Directly on to your smartphone</li>
-            <li>Headless Mode</li>
-                <li>360 dergree mid air flips</li>
-                    <li>Blade Protectors</li>
-                        <li> 2 Speeds (High and Low)</li>
-                        </ul>
-                        <br>
-            <h3>Specifications:</h3>
-            <ul>
-            <li>Brand Name: Syma</li>
-            <li>Model Number: X5SW</li>
-            <li>Aerial Photography: Yes</li>
-            <li>Material: Metal, Plastic</li>
-            <li>Remote Distance: About 50m</li>
-            <li>Dimensions: 31.5 x 31.5 x 10.5cm</li>
-            <li>Charging Voltage: 3.7V 500mAh</li>
-            <li>Charging Time: About 130mins</li>
-            <li>Controller Battery: 4*AA(Not Included)</li>
-            <li>Control Channels: 4 Channels</li>
-            <li>Action Time: About 8mins</li>
-            <li>Age Range: > 14 years old</li>
-            <li>Camera: FPV Wifi (Can connect with smartphones)</li>
-        </ul>
-    </div>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
+        </div>
         <script>
 
             var productImages = [
@@ -102,6 +91,14 @@
         
         
             </script>
-           
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

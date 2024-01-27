@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> led3 </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -28,22 +44,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">USB RECHARGEABLE CREE XML T6 & COB LED HEAD LAMP TORCH</p>
-                <p class="ProductPrice">Price: $29.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('USB RECHARGEABLE CREE XML T6 & COB LED HEAD LAMP TORCH', 29.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">USB RECHARGEABLE CREE XML T6 & COB LED HEAD LAMP TORCH</p>
-        <p>Comfortable to wear, this high powered rechargeable Head Torch Lamp is equipped with a CREE XML T6 LED and COB LED. It has 3 different light modes ( High, Low and Flashing) and an adjutable zoom len beam angle to suit various applications. The head strap and LED Bracket is adjustable to provide maximum comfort and illumination.
-            This CREE LED Head Torch Lamp is perfect for camping, fishing, working on you car, boat ot truck. Keep it in your fishing tackle, glove box or emergency cabinet. Supplied with rechargeable battery and simply charges via USB.
-             </p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -69,5 +83,14 @@
             }
         
             </script>
+   <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

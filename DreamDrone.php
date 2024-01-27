@@ -1,6 +1,25 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
-    <title> Dream Drone </title> <!--Produkti i finalizuar-->
+    <title> Dream Drone </title>
     <head> 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <style>
 
@@ -36,22 +52,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">Dream RC GPS WiFi 1080p FPV Drone</p>
-                <p class="ProductPrice">Price: $399.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Dream RC GPS WiFi 1080p FPV Drone', 399.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">Dream RC GPS WiFi 1080p FPV Drone</p>
-        <p>The Dream RC GPS WiFi 1080p FPV Drone  is a great low cost alternative to a DJI Spark Drone. At a fraction of the price of the Spark Drone, the Dream drone shares most of the Spark Drone features. It integrates a 1080p HD Camera mounted on a 2 axis brushless gimbal for smooth video recording or transmission directly to your smartphone via an APP up to 800m in range.
-            With its powerful GPS positioning (GPS and GLONASS) and brushless motors, it is able to hold a fixed position even in windy conditions. Also has follow me and return to home functionality; whereby the drone will return to its original take off point automatically at a press of a button or in loss of signal and low battery situations. Features two flight modes; surround mode flies around a Point of Interest and Waypoint mode allows flight at a route set.
-            Complete with Remote controller for long range control.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -78,6 +92,14 @@
         
         
             </script>
-           
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> HDMI5 </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -25,19 +41,18 @@
         </div>
             <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">2 Way HDMI 2.0 18GBPS UHD Splitter </p>
-                <p class="ProductPrice">Price: $99.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('2 Way HDMI 2.0 18GBPS UHD Splitter ', 99.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">2 WAY HDMI 2.0 18GBPS SPLITTER</p>
-        <p>Connecting a 4K HDMI Source such as a Foxtel IQ4, PS4 Pro or XBOX One S to multiple LCD Displays with varying resolutions can be rather frustrating. The 4K HDMI source detects the lowest resolution and displays this HDMI signals across all LCD Displays connected. With this 2 Way HDMI 2.0 Splitter, you are able to output a 4K and 1080P resolutions across 2 Displays connected to the HDMI Splitter. It has a manual EDID setting that allows manual control over which EDID setting to follow. It also have a Video resolution switch to manually select each output to dispay 4K or 1080p. Also supports HDR and has HDCP Stripper / Converter to allows connectivity to older LCD's and TV's with earlier HDCP versions.
-            It integrates a HDMI Audio Extractor which allows interfacing of older amplifiers, receivers or even wireless headphones via the digital fibre optic toslink output or line level Audio output via the 3.5mm Stereo socket.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -60,5 +75,14 @@
             }
         
             </script>
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

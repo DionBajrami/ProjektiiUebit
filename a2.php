@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> Audio 2</title> 
@@ -10,9 +29,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
+    
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -25,30 +42,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">STEREO HEADPHONES WITH VOLUME CONTROL </p>
-                <p class="ProductPrice">Price: $6.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('STEREO HEADPHONES WITH VOLUME CONTROL', 6.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">STEREO HEADPHONES WITH VOLUME CONTROL</p>
-        <p> Immerse yourself in the world of rich, high-fidelity sound with these stylish and comfortable headphones, designed to elevate your listening pleasure to new heights.
-
-            Equipped with precision-tuned drivers, these headphones deliver a crisp and clear stereo sound that brings your music, podcasts, and movies to life. Whether you're a music enthusiast, a gamer, or someone who appreciates top-notch audio quality, our STEREO HEADPHONES are engineered to meet your discerning standards.
-            
-            One of the standout features of these headphones is the integrated volume control, putting the power to customize your audio experience right at your fingertips. Easily adjust the volume to suit your preferences without reaching for your device, allowing you to stay immersed in your content without any interruptions.
-            
-            The sleek and ergonomic design of the STEREO HEADPHONES ensures a comfortable fit for extended wear, making them perfect for long listening sessions or on-the-go use. The padded ear cups provide excellent noise isolation, allowing you to enjoy your favorite tunes without any disturbance from the outside world.
-            
-            Designed with durability in mind, these headphones are built to withstand the rigors of daily use. The adjustable headband ensures a secure fit for different head sizes, and the foldable design makes them convenient to carry in your bag or backpack.
-            
-            Whether you're commuting, working out, or just relaxing at home, the STEREO HEADPHONES WITH VOLUME CONTROL offer a premium audio experience in a sleek and functional package. Elevate your sound and redefine your listening experience with these exceptional headphones.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -71,5 +78,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

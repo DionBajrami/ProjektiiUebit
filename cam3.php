@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
 
@@ -11,9 +30,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -24,26 +40,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">Video Camera Camcorder 4K 64MP 60FPS Lens</p>
-                <p class="ProductPrice">Price: $244.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Video Camera Camcorder 4K 64MP 60FPS', 244.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">Video Camera Camcorder 4K 64MP 60FPS</p>
-        <ul>
-            <li>🎥【4.0" Touch Screen & 4K 64MP Camcorder】The vlogging camera supports 4K Ultra HD 60PFS video resolution, 64MP image resolution,18X Digital Zoom. You can record every precious moment in your day-to-day life with this camcorder. This Youtube camera is great for vloggers and photography enthusiasts.</li>
-            <li>🎥【Auto Focus Function & Remote Control】This camcorders video camera 4k has a new autofocus function, it can automatically focus and clear imaging, whether far or near(>10cm), so you can get clear and beautiful pictures and videos. This 4K camcorder also supports a 2.4G 360° wireless remote control function, you can control your camera in any specific location.</li>
-            <li>🎥【Wifi Function & Webcam】The camcorders video camera 4k supports wifi function. You can download the "XDV PRO" APP on your phone to control the camera and transfer the videos and pictures easily to your phone. Also, this camcorder can be used as a webcam, you can instantly download, transfer, and share photos and videos via your mobile deviceto your friends and family.</li>
-            
-        </ul>
-             
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -66,5 +76,14 @@
             }
         
             </script>
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

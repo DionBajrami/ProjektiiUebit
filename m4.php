@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     
@@ -11,9 +30,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -29,22 +45,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">10,000MAH USB-C PD POWER DELIVERY POWER BANK</p>
-                <p class="ProductPrice">Price: $49.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('10,000MAH USB-C PD POWER DELIVERY POWER BANK', 49.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">10,000MAH USB-C PD POWER DELIVERY POWER BANK</p>
-        <p>Offering both the latest QuickCharge 3.0 charging and USB-C PD output, this enormous 10,000mAh power bank will keep your devices charged away from mains power. Dual USB type A outputs for QC3.0 charging, whilst USB C output offers power delivery for iPad Pro and USB C equipped laptops and notebooks. Great for those times you’re away from a mains outlet! Includes micro USB charging cable.
-
-            This battery bank can be recharged either through the micro USB input or via the USB C input/output port. The USB C input offers faster recharging, so it's perfect for repeated use when out on the road, in the field with drones and photography equipment etc. You can even use it to charge multiple devices at the same time (although be aware there is a max current output and some devices may not charge without the full output of the battery bank - particularly laptops).</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -70,5 +84,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

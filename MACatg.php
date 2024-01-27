@@ -24,7 +24,7 @@ $productLinks = [
 
 <!DOCTYPE html>
 <html>
- <title> Video Category </title>
+ <title> Mobile Accessories Category </title>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,22 +35,22 @@ $productLinks = [
 </head>
 
 <body>
-    <h1><?php echo $categoryToShow; ?></h1>
+    <h1>Mobile Accessories</h1>
     <div class="shopcontainer">
 
         <?php
 
-foreach ($productsByCategory as $powerProducts) {
-    if (is_array($powerProducts)) {
-        $productId = (int) $powerProducts['id'];
-        $productLink = isset($productLinks[$productId]) ? $productLinks[$productId] : '#';
+foreach ($productsByCategory as $MAProducts) {
+    if (is_array($MAProducts)) {
+        $productId = (int) $MAProducts['id'];
+        $productLink = isset($productLinks[$productId]) ? "{$productLinks[$productId]}?productID={$productId}" : '#';
 
         echo "<div class='products'>";
-        echo "<a href='{$productLink}'><img src='{$powerProducts['imagePath']}' alt='{$powerProducts['name']}' class='img'></img></a>";
+        echo "<a href='{$productLink}'><img src='{$MAProducts['imagePath']}' alt='{$MAProducts['name']}' class='img'></img></a>";
         echo "<div class='info'>";
-        echo "<a href='{$productLink}'>{$powerProducts['name']}</a>";
-        echo "<p class='price'>$ {$powerProducts['price']}</p>";
-        echo "<div class='addcart' onclick=\"addToCart1(this); addToCart('{$powerProducts['name']}', {$powerProducts['price']})\">ADD TO CART</div>";
+        echo "<a href='{$productLink}'>{$MAProducts['name']}</a>";
+        echo "<p class='price'>$ {$MAProducts['price']}</p>";
+        echo "<div class='addcart' onclick=\"addToCart1(this); addToCart('{$MAProducts['name']}', {$MAProducts['price']})\">ADD TO CART</div>";
         echo "</div></div>";
     } else {
         echo "<p>No products found in the category: {$categoryToShow}</p>";

@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> HDMI4 </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images" style="width: 600px;">
@@ -29,10 +45,10 @@
         </div>
             <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">2 WAY HDMI AV SPLITTER </p>
-                <p class="ProductPrice">Price: $29.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('2 WAY HDMI AV SPLITTER ', 29.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
@@ -42,6 +58,7 @@
         <p class="ProductTitle">2 WAY HDMI AV SPLITTER</p>
         <p>This USB 3.0 Video Capture Device has 2 HDMI Inputs. It is a perfect solution for tutorials, gamers, bloggers and live streamers. It allows you to conenct a HDMI video source and a HD camera at the same time and stream the content on an online platform. Supports 1080p high definition inputs and has 1 x HDMI output for a Display and a USB 3.0 output for PC or Laptop connectivity. Compatible with most video capture software such as VLC, OBS, etc.</p>
         </div>
+    
         <script>
 
         var productImages = [
@@ -65,5 +82,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

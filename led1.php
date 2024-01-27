@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> led1 </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -27,24 +43,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">SMART WI-FI SECURITY LED FLOOD LIGHT</p>
-                <p class="ProductPrice">Price: $69.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('SMART WI-FI SECURITY LED FLOOD LIGHT', 69.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">SMART WI-FI SECURITY LED FLOOD LIGHT</p>
-        <p>LED security spot light and camera with a motion sensor will instantly react to intruders by turning lights on when it detects motion. It has light level controls to prevent daytime operation and timer controls to adjust the length of time the light is on. IP65 rated to suit outdoor operation. 26W LEDs, swivel and rotatable stand, 240Vac screw terminals (Requires electrician installation).
-
-            This smart outdoor security light includes a 1080p security camera and a motion sensor that can turn on the light when the sensor is triggered. The 2x 13W LED spot lights are managed by the Tuya smart app, available on the Apple App Store or Google Play Store. You can use the app to adjust the colour temperature from warm white (3000K) to cool white (6000K), and it can also adjust the motion detection range and the level of brightness the ambient light sensor will trigger.
-            The camera supports 1080p resolution and has a built-in infrared light for recording footage at night. It has a memory card slot where you can use an SD card (not included). The app allows you to view live video and record footage.
-            The light has a weather-resistant design, adjustable LED heads, and an adjustable motion sensor for easy installation.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -69,5 +81,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

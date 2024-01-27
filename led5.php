@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> led5 </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -28,20 +44,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">20W IP65 PORTABLE RECHARGEABLE LED WORK LIGHT</p>
-                <p class="ProductPrice">Price: $74.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('20W IP65 PORTABLE RECHARGEABLE LED WORK LIGHT', 74.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">20W IP65 PORTABLE RECHARGEABLE LED WORK LIGHT</p>
-        <p>The IP65 highly energy efficient portable rechargeable LED flood light is a handy companion for all sorts of indoor and outdoor lighting applications. The 20W LED lamp uses up to 80% less energy than conventional flood lights, and the internal battery can power the lamp for up to 3 hours at full power or longer at 50% power. The LED lamp is placed on a durable and adjustable stand with a padded handle. The flexible lamp can rotate 360° and tilt over 180° on its detachable stand. A great companion for outdoor camping, use at a worksite or leave it in your car for emergency use. 120° beam angle. 12VDC / 100 - 240V AC. It includes a car charger and AC charger (5 hours recharge time).</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -67,5 +83,14 @@
             }
         
             </script>
+   <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

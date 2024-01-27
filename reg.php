@@ -180,8 +180,7 @@ if (isset($_POST['loginbtn'])) {
 
             let registerEmailInput = document.getElementById('registerEmail');
             let registerPasswordInput = document.getElementById('registerPassword');
-            let confirmPaswwordInput = document.getElementById('confirmPassword');
-
+           
             let loginEmailInput = document.getElementById('loginEmail');
             let loginPasswordInput = document.getElementById('loginPassword');
 

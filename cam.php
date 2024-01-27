@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
 
@@ -11,9 +30,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -23,25 +39,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">G-Anica 4K Digital Cameras for Photography</p>
-                <p class="ProductPrice">Price: $148.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('G-Anica 4K Digital Cameras for Photography', 148.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">G-Anica 4K Digital Cameras for Photography</p>
-        <ul>
-            <li>【Vlogging Camera with 4K 48MP】: Capture the most precious moments of your life with this advanced vlogging camera that features 4K/30fps smooth video resolution and 48MP photographs. With outstanding recording and photographing capabilities, this camera will become your trusty companion in every adventure. Cherish every smile and turn it into a precious memory that you can revisit time and again.</li>
-            <li>【16X Digital Zoom & 3.0" IPS LCD Screen】: This portable and compact camera comes equipped with 16X digital zoom that allows you to zoom in on faraway objects with ease. The 3.0-inch IPS LCD screen delivers clear and vivid pictures and videos, enabling you to shoot and view your media with remarkable quality. With a 32GB SD card included, you can use this camera right out of the box without any additional purchases.</li>
-            <li>【Multi-Functional Digital Camera】: With the ability to hide or open its built-in flash as needed and adjust ISO settings for low-light environments, this video camera is the ultimate tool for capturing any scene. Packed with features like Selfie mode, continuous shooting, one-button mute, white balance, time stamp, and DISP (bright/off screen display interface), this compact camera truly does it all.</li>
-        </ul>
-             
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -65,5 +76,14 @@
             }
         
             </script>
+        <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

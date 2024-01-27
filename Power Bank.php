@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> Power Bank </title> 
@@ -10,55 +29,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <header>
-        <span class="title">TechZone</span>
-            <a id="reg" href="reg.php"><img src="person_FILL0_wght400_GRAD0_opsz24.png">Register/Login</img><a>
-                <div class="searchbox">
-                    <table class="elementbox">
-                        <tr>
-                            <td>
-                <input type="text" placeholder="Search" class="search">
-                </td>
-                <td>
-                <a href=""><i class="searchicon"><img src="search_FILL0_wght400_GRAD0_opsz24.png" alt="search"></i></a>
-            </td>
-         <tr>
-    </table>
-    </div>
-        <nav>
-            <div class="navbar">
-                 
-                <div class="links">
-                  <a href="index.php">
-                    <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Home</img></a>
-                    <a href="Contact Us.php">Contact Us</a>
-                    <a href="NewA.php">New Arrivals</a>
-                    <a href="Cart.php"><img src="shopping_cart_FILL0_wght400_GRAD0_opsz24.png" class="icon">Cart</img></a>
-                  </div>
-
-
-                
-                       <div class="dropdown">
-                        <button> ↓ Products</button>
-                       <div class="content">
-                        <a href="PowerCatg.php">Power</a>
-                        <a href="HDMICatg.php">HDMI</a>
-                        <a href="DronesCatg.php">Drones</a>
-                        <a href="LEDCatg.php">LED light</a>
-                        <a href="MACatg.php">Mobile Accessories</a>
-                        <a href="AudioCatg.php">Audio</a>
-                        <a href="ComponentsCatg.php">Components</a>
-                        <a href="VideoCatg.php">Video</a>
-
-
-                      </div>
-                      
-                      </div>
-                        
-               
-            </div>
-        </nav>
-    </header>
+    
     <body>
         <div class="pContainer">
             <div class="images">
@@ -72,33 +43,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">20,000MAH POWER BANK WITH 2 X USB AND WIRELESS CHARGER IN BLACK</p>
-                <p class="ProductPrice">Price: 189.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Power Bank with 2 x USB and Wireless charger', 189.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">20,000MAH POWER BANK WITH 2 X USB AND WIRELESS CHARGER IN BLACK</p>
-        <p>With a huge 20,000mah capacity, 
-            this is a great choice for anyone
-             looking for a power bank with enough
-              capacity to recharge their USB or 
-              wirelessly charged devices multiple times.
-               It features a Type A and Type-C USB port 
-               with Quick Charge technology, allowing you
-                to fast charge compatible devices, 
-                as well as an integrated Qi fast charger.
-                 The LED display shows you the remaining 
-                 battery capacity as a percentage,
-                  and you can recharge the power bank 
-                  via either the Micro-B or Type-C USB 
-                  ports.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -123,5 +81,14 @@
             }
         
             </script>
+     <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>

@@ -1,3 +1,22 @@
+<?php
+include 'navbar.php';
+include 'products.php';
+include 'product_functions.php';
+
+$productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+$productFunctions = new product_functions;
+
+$productDetails = $productFunctions->getProductById($productID);
+
+if ($productDetails) {
+    $product = new Product(
+        $productDetails['name'],
+        $productDetails['imagePath'],
+        $productDetails['description'],
+        $productDetails['price'],
+        $productDetails['category']
+    );
+  ?>
 <!DOCTYPE html>
 <html> 
     <title> GPSDrone </title> 
@@ -10,9 +29,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <script src="script.js"></script>
-    <?php
-   include 'navbar.php';
-   ?>
     <body>
         <div class="pContainer">
             <div class="images">
@@ -28,21 +44,20 @@
             <br>
             
         </div>
-            <div class="info_container">
+        <div class="info_container">
             <div class="p_info">
-                <p class="ProductTitle">Q868 FOLDING BRUSHLESS GPS DRONE WITH 4K 2 AXIS GIMBAL HD FPV CAMERA - 2 BATTERIES</p>
-                <p class="ProductPrice">Price: 499.99</p>
+                <p class="ProductTitle"><?php echo $product->getName()?> </p>
+                <p class="ProductPrice">Price: $<?php echo $product->getPrice()?></p>
                     <div class="addcart" onclick="addToCart1(this);
-                    addToCart('Power Bank with 2 x USB and Wireless charger', 499.99)">ADD TO CART</div>
+                    addToCart('<?php echo $product->getName()?> ', <?php echo $product->getPrice()?>)">ADD TO CART</div>
             </div>
             </div>
         </div>
     
        <div class="description">
         <div class="desc">Description</div>
-        <p class="ProductTitle">Q868 FOLDING BRUSHLESS GPS DRONE WITH 4K 2 AXIS GIMBAL HD FPV CAMERA - 2 BATTERIES</p>
-        <p>The XK Q868 is a folding camera drone equipped with a 4K full HD FPV Camera on a 2 axis gimbal for stable video recording. The camera is tilt adjustable from the remote making it a great for photography and videography drone. Integrates GPS functionality for stable drone positioning, return to home function and video flight modes.
-            The Q868 Camera Drone is capable of transmitting video back to your smartphone via the APP up to 500m in distance. The modular high capaicty rechargeable battery pack is able to provide up to 30 mins flight time. Features follow me, orbit mode, waypoint flight modes. It integrates handy safety features such as Lose control and low battery return functions to ensure your drone is always safe.</p>
+        <p class="ProductTitle"><?php echo $product->getName()?> </p>
+        <p><?php echo $product->getDescription()?></p>
         </div>
         <script>
 
@@ -68,5 +83,14 @@
             }
         
             </script>
+    <?php
+        } else{
+            echo "<p style=background-color:red;font-size:20px;>No product was found with the given ID</p>";
+        }?>
     </body>
+    <?php
+    
+    include 'comments.php';
+    include 'footer.php'; 
+    ?>
 </html>
