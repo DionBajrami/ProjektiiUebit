@@ -47,8 +47,8 @@ include_once('DatabaseConnection.php');
 
         $statement = $conn->prepare($sql);
         $statement->execute([$username, $email, $password, $role, $id]);
-
         echo "<script>console.log('Changes made')</script>";
+        
     }
 
     function deleteUser($id){
@@ -91,5 +91,7 @@ include_once('DatabaseConnection.php');
 
         return $user;
     }
+        
 }
+
 ?>

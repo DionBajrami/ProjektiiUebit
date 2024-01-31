@@ -1,11 +1,12 @@
 <?php
-include "DatabaseConnection.php";
-include_once "user_functions.php";
+include "user_functions.php";
 include_once "users.php";
 
 $uf = new user_functions();
 $users = $uf->getAllUsers();
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +21,7 @@ $users = $uf->getAllUsers();
     ?>
 </header>
 <body>
+<p class = "title" style="color:black">Users</p>
     <div class="UsersContainer" style="margin:10px">
         <table class ="useriTable" border = 1>
 
@@ -47,13 +49,26 @@ $users = $uf->getAllUsers();
             background-color:lightgray;
             font-size:18px
         }
+        .UsersContainer img{
+           text-align:center;
+           width:100%;
+          
+        }
         #edit{
             width:30px;
             background-color:lime;
+            border-radius:5px
         }
         #delete{
             background-color:red;
             width:30px;
+            border-radius:5px
+        }
+        #message{
+            width:30px;
+            background-color:skyblue;
+            border-radius:5px;
+            width:100%"
         }
     </style>
 
@@ -70,8 +85,10 @@ $users = $uf->getAllUsers();
                         <td><?php echo $user['username'];?></td>
                         <td><?php echo $user['email'];?></td>
                         <td><?php echo $user['role'];?></td>
-                        <td id="edit"><a href='edit.php?id=<?php echo $user['id']?>'><img src="edit_FILL0_wght400_GRAD0_opsz24.png" style="background-color:lime;border-radius:5px;width:100%"></a></img></td>
-                        <td id="delete"><a href='delete.php?id=<?php echo $user['id']?>'><img src="delete_FILL0_wght400_GRAD0_opsz24.png" style="background-color:red;border-radius:5px;width:100%"></a></img></td>
+                        <td id="edit"><a href='edit.php?id=<?php echo $user['id']?>'><img src="edit_FILL0_wght400_GRAD0_opsz24.png"></a></img></td>
+                        <td id="message"><a href='messages.php?id=<?php echo $user['id']?>'><img src="chat_bubble_FILL0_wght400_GRAD0_opsz24.png" ></a></img></td>
+                        <td id="delete"><a href='delete.php?id=<?php echo $user['id']?>'><img src="delete_FILL0_wght400_GRAD0_opsz24.png"></a></img></td>
+                       
                     </tr>
                 <?php }?>
             </tbody>

@@ -9,13 +9,13 @@ if (isset($_POST['regbtn'])) {
     $password = $_POST['register_password'];
     $role = 'user';
 
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
 
     $userFunctions = new user_functions();
     if ($userFunctions->exists($email, $username)) {
         echo "<script>alert('User with this email or username already exists')</script>";
     } else {
-        $user = new users($username, $email, $passwordHash, $role);
+        $user = new users($username, $email, $password, $role);
 
         try {
             $userFunctions->insertUser($user);

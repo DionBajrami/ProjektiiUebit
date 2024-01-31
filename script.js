@@ -1,5 +1,3 @@
-
-
 function addToCart1(button) {
     button.classList.toggle('expanded');
 
@@ -9,5 +7,6 @@ function addToCart1(button) {
         button.innerHTML = 'ADD TO CART';
     }
 }
+
 
 

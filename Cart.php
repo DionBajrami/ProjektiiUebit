@@ -21,16 +21,9 @@
         </a>
     </button>
 </div>
-<footer>
-    <!--footer content -->
-</footer>
+<?php
+include "footer.php";
+?>
 <script src="script.js"></script>
 </body>
 </html>
-
-
-    <!--
-    <p class="carttext">Your Shopping Cart Is Empty!</p>
-    <button class="GoShopping"><a href="index.php">
-        <img src="home_FILL0_wght400_GRAD0_opsz24.png" class="icon">Click here to start shopping!</img></a></button>
-        -->

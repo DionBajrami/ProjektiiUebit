@@ -1,94 +1,130 @@
+<?php
+include 'navbar.php';
+include 'contactmessages_functions.php';
+
+
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
+
+
+
+$userLoggedIn = isset($_SESSION['username']); 
+
+if ($userLoggedIn && isset($_SESSION['id'])) {
+    $userId = $_SESSION['id'];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $messageFunctions = new contactmessages_functions();
+        $userDetails = $messageFunctions->getUserDetailsById($userId);
+
+        if ($userDetails) {
+            $senderUsername = $userDetails['username'];  
+            $senderEmail = $userDetails['email']; 
+
+            $subject = $_POST['subject'];
+            $messageText = $_POST['message'];
+
+            $message = new contactmessages($userId, $senderUsername, $senderEmail, $subject, $messageText);
+
+            $messageFunctions->saveMessage($message);
+        } 
+    } else {
+        echo "Invalid request method.";
+    }
+} else {
+    echo "User not logged in.";
+}
+
+
+/*
+include 'navbar.php';
+include_once 'user_functions.php';
+include_once 'contactmessages_functions.php';
+include_once 'contactmessages.php';
+
+$contactMessageFunctions = new contactmessages_functions;
+
+$userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
+
+$uf = new user_functions;
+$messages = $contactMessageFunctions->getMessagesForAdmin();
+
+$userLoggedIn = isset($_SESSION['username']);
+
+$contactMessage = null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
+    if (isset($_SESSION['userID']) && isset($_POST['sendbtn'])) {
+        $userID = $_SESSION['userID'];
+        $username = $_SESSION['username'];
+        $email = $_SESSION['email'];
+        $subject = $_POST['subject'];
+        $messageText = $_POST['message'];
+
+        $contactMessage = new contactmessages($userID, $_SESSION['username'], $email, $subject, $messageText);
+
+        $contactMessageFunctions->saveMessage($contactMessage);
+        $messages = $contactMessageFunctions->getMessagesForAdmin();
+    }
+} */
+?>
 <!DOCTYPE html>
-<html> 
-    <title> Contact Us </title>
-    <head> 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel ="icon" type ="image/png" href = "bolt_FILL0_wght400_GRAD0_opsz24.png">
-        <link rel="stylesheet" href="style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/7d49814b59.js" crossorigin="anonymous"></script>
+<html lang="en">
 
-        <script>
-            function validateForm() {
-            
-                let name = document.getElementById('name');
-                let lastname = document.getElementById('lastname');
-                let email = document.getElementById('email');
-                let message = document.getElementById('message');
-    
-                let nameregex = /^[A-Z][a-z]{2,8}$/;
-                let lastnameregex = /^[A-Z][a-z]{2,8}$/;
-                let emailregex = /^[A-Za-z0-9_-]{1,40}@[a-z-/s]+\.+[a-z/s]{2,4}$/;
-                let messageregex = /.{10,}/;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
 
-                
-    
-                if (!nameregex.test(name.value)){
-                    nameError.innerText = 'Fill the name with a capital letter and size between 2-8';
-                    return ;
-                }
-                
-                if (!lastnameregex.test(lastname.value)) {
-                    lastnameError.innerText = 'Fill the last name with a capital letter and size between 2-8';
-                    return ;
-                }
-                if (!emailregex.test(email.value)) {
-                    emailError.innerText = 'Enter a valid email';
-                    return ;
-                }
-                if (!messageregex.test(message.value)) {
-                    messageError.innerText = 'The message should be at least 10 characters long!';
-                    return ;
-                }
-    
-                window.location.href = 'Feedback.php';
-            }
-        </script>
-
-    </head>
-    <body>
-    <?php
-   include 'navbar.php';
-   ?>
+<body>
 
     <main>
-        
-        
-
-    
-    <largetext>Contact Us</largetext>
-    <div class="right">
-        <input type="text" placeholder="First Name" minlength="2" maxlength="20" id="name">
-        <span id="nameError" class="error"></span>
-
-        <input type="text" placeholder="Last Name" minlength="2" maxlength="20" id="lastname">
-        <span id="lastnameError" class="error"></span>
-
-        <input type="email" placeholder="Email" maxlength="40" id="email"> 
-        <span id="emailError" class="error"></span>
-
-        <div class="wrapper">
-        <textarea placeholder="Message" maxlength="400" id="message"></textarea>
-        <span id="messageError" class="error"></span>
-
-             </div>
-             <button class="send" onclick="validateForm()">SEND</button>
+        <largetext>Contact Us</largetext>
+        <div class="right">
+        <form id="contactForm" method="post" action="" onsubmit="return validateForm();">
+         <div class="wrapper">
+                    <?php
+                    if ($userLoggedIn) {
+                        ?>
+                        <input type="text" name="subject" placeholder="Subject" maxlength="25" style="text-align:center;border-bottom:none;width:100%;"><br>
+                        <textarea placeholder="Message" maxlength="400" name="message" id="message"></textarea>
+                        <span id="messageError" class="error"></span>
+                </div>
+                <button type="submit" name="sendbtn">SEND</button>
+                 <?php
+                 } else {
+                    echo '<p class="title" style="font-size:14px;color:gray;">-Please log in to send a message-</p>';
+                }
+                ?>
+            </form>
         </div>
-        <style>
-            .error{
-        color: rgb(241, 75, 75);
-        margin: 5px;
-    }
-        </style>
-        
-  
-</main>
+    </main>
 
-<?php 
-   include "footer.php";
-   ?>
+    <style>
+        .error {
+            color: rgb(241, 75, 75);
+            margin: 5px;
+        }
+    </style>
+
+    <?php
+    include "footer.php";
+    ?>
 </body>
-</html>
+<script>
+         function validateForm() { 
+        let message = document.getElementById('message');
+        let messageregex = /.{10,}$/;
 
+        if (!messageregex.test(message.value)) {
+            messageError.innerText = 'The message should be at least 10 characters long!';
+            return false;
+        }
+        return true;
+    }
+        </script>
+</html>
