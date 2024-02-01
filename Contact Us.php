@@ -1,73 +1,27 @@
 <?php
-include 'navbar.php';
-include 'contactmessages_functions.php';
+include_once 'contactMessages_functions.php';
+include_once 'navbar.php';
 
+$userID = isset($_GET['userID']) ? $_GET['userID'] : null;
 
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-
-
-
-$userLoggedIn = isset($_SESSION['username']); 
-
-if ($userLoggedIn && isset($_SESSION['id'])) {
-    $userId = $_SESSION['id'];
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $messageFunctions = new contactmessages_functions();
-        $userDetails = $messageFunctions->getUserDetailsById($userId);
-
-        if ($userDetails) {
-            $senderUsername = $userDetails['username'];  
-            $senderEmail = $userDetails['email']; 
-
-            $subject = $_POST['subject'];
-            $messageText = $_POST['message'];
-
-            $message = new contactmessages($userId, $senderUsername, $senderEmail, $subject, $messageText);
-
-            $messageFunctions->saveMessage($message);
-        } 
-    } else {
-        echo "Invalid request method.";
-    }
-} else {
-    echo "User not logged in.";
-}
-
-
-/*
-include 'navbar.php';
-include_once 'user_functions.php';
-include_once 'contactmessages_functions.php';
-include_once 'contactmessages.php';
-
-$contactMessageFunctions = new contactmessages_functions;
-
-$userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
-
-$uf = new user_functions;
-$messages = $contactMessageFunctions->getMessagesForAdmin();
-
+$cmf = new contactMessages_functions;
+$messages = $cmf->getMessageByUserID($userID);
 $userLoggedIn = isset($_SESSION['username']);
 
-$contactMessage = null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sendbtn'])) {
+    $userID = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+    $subject = $_POST['subject'];
+    $messageText = $_POST['message'];
+    $sentAt = date('Y-m-d H:i:s');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
-    if (isset($_SESSION['userID']) && isset($_POST['sendbtn'])) {
-        $userID = $_SESSION['userID'];
-        $username = $_SESSION['username'];
-        $email = $_SESSION['email'];
-        $subject = $_POST['subject'];
-        $messageText = $_POST['message'];
 
-        $contactMessage = new contactmessages($userID, $_SESSION['username'], $email, $subject, $messageText);
+    $cmf->saveMessage($userID, $subject, $messageText, $sentAt);
 
-        $contactMessageFunctions->saveMessage($contactMessage);
-        $messages = $contactMessageFunctions->getMessagesForAdmin();
-    }
-} */
+    $messages = $cmf->getMessageByUserID($userID);
+    echo '<script>console.log("message saved");</script>';
+}else{
+    echo '<script>console.log("message wasn\'t sent");</script>';
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     <main>
         <largetext>Contact Us</largetext>
         <div class="right">
-        <form id="contactForm" method="post" action="" onsubmit="return validateForm();">
+        <form id="contactForm" method="post" action="Feedback.php" onsubmit="return validateForm();">
          <div class="wrapper">
                     <?php
                     if ($userLoggedIn) {

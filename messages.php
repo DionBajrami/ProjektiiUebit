@@ -1,51 +1,59 @@
 <?php
-include_once 'contactmessages_functions.php';
+include_once 'contactMessages_functions.php';
+include_once 'user_functions.php';
 include_once 'navbar.php';
 
-$cf = new contactmessages_functions;
-$userID = isset($_GET['userID']) ? $_GET['userID'] : null;
+$userID = isset($_GET['id']) ? $_GET['id'] : null;
 
-    $messages = $cf->getMessageByUserID($userID);
+$cmf = new contactMessages_functions;
+$messages = $cmf->getMessageByUserID($userID);
 
-    if ($messages) {
-        $contactmessage = new contactmessages(
-            $messages['SenderUsername'],
-            $messages['subject'],
-            $messages['message_text']
-        );
-        ?>
-        <!DOCTYPE html>
-        <html lang="en">
+$uf = new user_functions;
+$userDetails = $uf->getUserById($userID);
+?>
+<!DOCTYPE html>
+<html lang="en">
 
-        <head>
-        <meta charset="UTF-8">
-         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <title>Messages</title>
-        </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Messages</title>
+    <style>
 
-        <body>
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
 
-            <main>
-                <largetext>Contact Messages from User <?php echo $SenderUsername; ?></largetext>
-                <div class="messages-container">
-                    <?php foreach ($messages as $message) { ?>
-                        <div class="message">
-                        <p><?php echo htmlspecialchars($message['senderUsername']); ?></p>
-                        <p><?php echo htmlspecialchars($message['subject']); ?></p>
-                        <p><?php echo htmlspecialchars($message['message_text']); ?></p>
-                        </div>
-                    <?php } ?>
-                </div>
-            </main>
+        p {
+            margin: 10px 0;
+        }
 
-            <?php
-            include "footer.php";
-            ?>
-        </body>
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 15px 0;
+        }
 
-        </html>
-        <?php
-    } else {
-    echo "No messages from this User";
+    </style>
+</head>
+<body>
+<?php
+if ($userDetails) {
+    echo "<h2>User Messages from {$userDetails['username']}</h2>";
+    echo "<p>Email: {$userDetails['email']}</p>";
+
+    
+    foreach ($messages as $message) {
+        echo "<p>Subject: {$message['subject']}</p>";
+        echo "<p>Message: {$message['messageText']}</p>";
+        echo "<p>Sent At: {$message['sentAt']}</p>";
+        echo "<hr>";
+    }
+} else {
+    echo "<p>User not found or invalid user ID.</p>";
 }
 ?>
+</body>
+</html>
